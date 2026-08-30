@@ -1,57 +1,46 @@
 import './styles.css'
-import { CONFIG } from './config.js'
-import { createMap } from './map.js'
-import { loadProperties } from './properties.js'
-import { mountApp, mountHeader, mountStatus } from './ui.js'
-import { showPopup } from './popup.js'
+import { matchRoute } from './router.js'
+import { mapView, teardownMapView } from './views/map.view.js'
+import { propertyView, teardownPropertyView } from './views/property.view.js'
 
-let currentPopup = null
-let map = null
+/** Teardown for the view that is currently displayed. */
+let currentTeardown = null
 
-async function init() {
-  mountApp()
-  mountHeader()
-  const status = mountStatus()
+async function dispatch() {
+  const raw = window.location.pathname.replace(/\/+$/, '') || '/'
+  const route = matchRoute(raw)
 
-  try {
-    await loadProperties()
+  // Clean up the previous view before rendering the new one.
+  if (currentTeardown) {
+    currentTeardown()
+    currentTeardown = null
+  }
 
-    const ctx = await createMap(document.getElementById('map'), {
-      onSelect: (id, feature) => {
-        ctx.selectParcel(id)
-        ctx.flyToId(id, feature)
-        openPopup(id, feature)
-      },
-      onReady: () => {
-        status.textContent = `${CONFIG.site.tagline} — click a parcel to explore it.`
-        setTimeout(() => status.remove(), 4000)
-      },
-    })
-    map = ctx.map
+  const app = document.getElementById('app')
 
-    map.on('click', (e) => {
-      // Only close the popup when clicking on empty map, not on a parcel.
-      const onParcel = map.queryRenderedFeatures(e.point, { layers: ['parcels-fill'] }).length > 0
-      if (currentPopup && !onParcel) {
-        currentPopup.remove()
-        currentPopup = null
-      }
-    })
+  if (!route) {
+    app.innerHTML = `
+      <div class="notfound">
+        <h1>Not found</h1>
+        <p>The page you're looking for does not exist.</p>
+        <a class="notfound-back" href="/">Back to the map</a>
+      </div>
+    `
+    return
+  }
 
-    window.addEventListener('resize', () => map.resize())
-  } catch (err) {
-    console.error(err)
-    status.textContent = err.message || 'Unable to load the map.'
-    status.classList.add('status--error')
+  if (route.name === 'property') {
+    currentTeardown = teardownPropertyView
+    await propertyView(route.id, app)
+  } else {
+    currentTeardown = teardownMapView
+    await mapView()
   }
 }
 
-function openPopup(id, feature) {
-  if (currentPopup) {
-    currentPopup.remove()
-    currentPopup = null
-  }
-  currentPopup = showPopup(map, id, feature, () => {})
+async function init() {
+  await dispatch()
+  window.addEventListener('popstate', () => dispatch())
 }
 
 init()
