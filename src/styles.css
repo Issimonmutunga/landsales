@@ -105,3 +105,126 @@ body {
   color: #9b1c1c;
   background: #fdecec;
 }
+
+/* ---------- Property popup ---------- */
+.maplibregl-popup-content {
+  padding: 0 !important;
+  border-radius: var(--radius) !important;
+  overflow: hidden;
+  box-shadow: var(--color-shadow) !important;
+  font-family: var(--font);
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+.maplibregl-popup-close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  font-size: 20px;
+  line-height: 1;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.maplibregl-popup-close-button:hover {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.pp .pp-photo {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  background: var(--color-brand-soft);
+}
+
+.pp .pp-photo--placeholder {
+  height: 90px;
+}
+
+.pp .pp-body {
+  padding: 14px 16px 16px;
+}
+
+.pp .pp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pp .pp-id {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.4px;
+}
+
+.pp .pp-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border: 1px solid;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.pp .pp-size {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+.pp .pp-price-row {
+  margin-top: 10px;
+}
+
+.pp .pp-price {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.pp .pp-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-line);
+}
+
+.pp .pp-spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.pp .pp-icon {
+  flex: none;
+  color: var(--color-brand);
+}
+
+.pp .pp-cta {
+  margin-top: 14px;
+  width: 100%;
+  border: none;
+  background: var(--color-brand);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.pp .pp-cta:hover {
+  background: #1d6a3c;
+}

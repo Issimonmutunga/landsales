@@ -26,9 +26,10 @@ export const CONFIG = {
     startZoom: 12,
     minZoom: 6,
     maxZoom: 19,
-    tileUrl: 'https://tiles.openfreemap.org/styles/liberty',
-    attribution:
-      '&copy; OpenFreeMap &copy; OpenStreetMap contributors',
+    // OpenFreeMap "liberty" vector style. Free for commercial use, no API key.
+    styleUrl: 'https://tiles.openfreemap.org/styles/liberty',
+    tileProvider:
+      'OpenFreeMap (styles/liberty) — free vector basemap for commercial use, no API key required. Data &copy; OpenStreetMap contributors.',
   },
 
   filters: {

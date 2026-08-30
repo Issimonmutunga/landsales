@@ -12,6 +12,7 @@ const SOURCE_ID = 'parcels'
 const LAYERS = {
   fill: 'parcels-fill',
   line: 'parcels-line',
+  hoverFill: 'parcels-hover-fill',
   selectedFill: 'parcels-selected-fill',
   selectedLine: 'parcels-selected-line',
   labels: 'parcels-labels',
@@ -28,25 +29,7 @@ export async function createMap(container, { onReady, onSelect, onHover } = {}) 
 
   const map = new maplibregl.Map({
     container,
-    style: {
-      version: 8,
-      sources: {
-        basemap: {
-          type: 'raster',
-          tiles: [CONFIG.map.tileUrl + '/{z}/{x}/{y}.png'],
-          tileSize: 256,
-          attribution: CONFIG.map.attribution,
-          maxzoom: 19,
-        },
-      },
-      layers: [
-        {
-          id: 'basemap',
-          type: 'raster',
-          source: 'basemap',
-        },
-      ],
-    },
+    style: CONFIG.map.styleUrl,
     center: CONFIG.map.startCenter,
     zoom: CONFIG.map.startZoom,
     minZoom: CONFIG.map.minZoom,
@@ -54,6 +37,7 @@ export async function createMap(container, { onReady, onSelect, onHover } = {}) 
     attributionControl: true,
   })
 
+  map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
   map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: 'metric' }), 'bottom-left')
   map.touchZoomRotate.disableRotation()
@@ -131,6 +115,17 @@ function addParcelLayers(map) {
       'line-opacity': 0.9,
     },
   })
+  // Hover highlight layer (empty by default, filled via filter).
+  map.addLayer({
+    id: LAYERS.hoverFill,
+    type: 'fill',
+    source: SOURCE_ID,
+    filter: ['all', ['==', ['get', 'id'], '']],
+    paint: {
+      'fill-color': '#166534',
+      'fill-opacity': 0.18,
+    },
+  })
   // Selected overlay drawn on top.
   map.addLayer({
     id: LAYERS.selectedFill,
@@ -153,30 +148,55 @@ function addParcelLayers(map) {
       'line-opacity': 0.95,
     },
   })
+  map.addLayer({
+    id: LAYERS.labels,
+    type: 'symbol',
+    source: SOURCE_ID,
+    layout: {
+      'text-field': ['get', 'id'],
+      'text-size': 12,
+      'text-font': ['Noto Sans Bold'],
+      'text-anchor': 'center',
+      'symbol-placement': 'point',
+      'text-allow-overlap': false,
+    },
+    paint: {
+      'text-color': '#164b2e',
+      'text-halo-color': '#ffffff',
+      'text-halo-width': 1.6,
+    },
+    minzoom: 12,
+  })
 }
 
 function setupInteractions(map, { onSelect, onHover }) {
   let hoveredId = null
-  const fillLayer = map.getLayer('parcels-fill')
 
-  map.on('mousemove', 'parcels-fill', (e) => {
+  map.on('mousemove', LAYERS.fill, (e) => {
     const id = e.features[0]?.properties?.id
     map.getCanvas().style.cursor = id ? 'pointer' : ''
     if (hoveredId === id) return
     hoveredId = id
+    if (hoveredId) {
+      map.setFilter(LAYERS.hoverFill, ['all', ['==', ['get', 'id'], hoveredId]])
+    } else {
+      map.setFilter(LAYERS.hoverFill, ['all', ['==', ['get', 'id'], '']])
+    }
     if (onHover) onHover(id)
   })
 
-  map.on('mouseleave', 'parcels-fill', () => {
+  map.on('mouseleave', LAYERS.fill, () => {
     map.getCanvas().style.cursor = ''
     if (hoveredId === null) return
     hoveredId = null
+    map.setFilter(LAYERS.hoverFill, ['all', ['==', ['get', 'id'], '']])
     if (onHover) onHover(null)
   })
 
-  map.on('click', 'parcels-fill', (e) => {
+  map.on('click', LAYERS.fill, (e) => {
     const id = e.features[0]?.properties?.id
-    if (id && onSelect) onSelect(id, e.features[0], e)
+    const feature = e.features[0]
+    if (id && onSelect) onSelect(id, feature, e)
   })
 }
 
