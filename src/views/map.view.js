@@ -11,6 +11,8 @@ import { mountBrand, mountStatus } from '../ui.js'
 import { showPopup } from '../popup.js'
 import { addPhotoMarkers } from '../photoMarkers.js'
 import { photoImgAttrs } from '../photos.js'
+import { buildFilterBar } from '../filterBar.js'
+import { visibleIds, idFilterExpr, PARCEL_FILTER_LAYERS } from '../filters.js'
 
 let currentPopup = null
 let map = null
@@ -30,6 +32,9 @@ export async function mapView() {
 
   mountBrand(root)
   const status = mountStatus(root)
+  const filtersHost = document.createElement('div')
+  filtersHost.className = 'filters-host'
+  root.appendChild(filtersHost)
 
   try {
     await loadProperties()
@@ -43,10 +48,13 @@ export async function mapView() {
       onReady: async () => {
         status.textContent = `${CONFIG.site.tagline} — click a parcel to explore it.`
         setTimeout(() => status.remove(), 4000)
+        buildFilterBar(filtersHost, applyFilters)
         await addPhotoMarkers(map, { onShowPhoto: showPhotoPopup })
+        applyFilters()
       },
     })
     map = ctx.map
+    window.__LSMAP = map
 
     map.on('click', (e) => {
       const onParcel = map.queryRenderedFeatures(e.point, { layers: ['parcels-fill'] }).length > 0
@@ -68,6 +76,19 @@ export async function mapView() {
 function onResize() {
   if (map) map.resize()
 }
+
+/** Apply the current filters to the map parcel layers immediately. */
+function applyFilters() {
+  if (!map) return
+  const ids = visibleIds()
+  const expr = idFilterExpr(ids)
+  for (const layer of PARCEL_FILTER_LAYERS) {
+    if (map.getLayer(layer)) map.setFilter(layer, expr)
+  }
+}
+
+// Minimal test hook so automated browser checks can drive filtering.
+window.__LSFILTERS = { applyFilters, visibleIds, getMap: () => map }
 
 function openPopup(id, feature) {
   if (currentPopup) {
