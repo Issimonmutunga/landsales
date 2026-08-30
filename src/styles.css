@@ -636,3 +636,94 @@ body {
 .filterbar-clear:hover {
   color: var(--color-ink);
 }
+
+/* ---------- Mobile bottom sheet ---------- */
+.mbs-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 26, 20, 0.32);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 30;
+}
+
+.mbs-backdrop.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mbs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 31;
+  background: var(--color-surface);
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -8px 30px rgba(20, 40, 30, 0.22);
+  transform: translateY(100%);
+  transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  max-height: 78vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mbs.is-open {
+  transform: translateY(0);
+}
+
+.mbs-grip {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-line);
+  margin: 10px auto 2px;
+}
+
+.mbs-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-brand-soft);
+  color: var(--color-ink);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mbs-close:hover,
+.mbs-close:focus-visible {
+  background: var(--color-line);
+  outline: none;
+}
+
+.mbs .pp .pp-photo {
+  border-radius: 14px 14px 0 0;
+}
+
+.mbs .pp .pp-body {
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 640px) {
+  .filters-host {
+    top: 10px;
+    max-width: calc(100% - 20px);
+  }
+  .filterbar {
+    flex-wrap: wrap;
+  }
+  .filterbar-search input {
+    width: 120px;
+  }
+}

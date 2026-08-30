@@ -8,11 +8,11 @@ import maplibregl from 'maplibre-gl'
 import { createMap } from '../map.js'
 import { loadProperties } from '../properties.js'
 import { mountBrand, mountStatus } from '../ui.js'
-import { showPopup } from '../popup.js'
 import { addPhotoMarkers } from '../photoMarkers.js'
 import { photoImgAttrs } from '../photos.js'
 import { buildFilterBar } from '../filterBar.js'
 import { visibleIds, idFilterExpr, PARCEL_FILTER_LAYERS } from '../filters.js'
+import { openBottomSheet, closeBottomSheet, teardownBottomSheet } from '../bottomSheet.js'
 
 let currentPopup = null
 let map = null
@@ -58,9 +58,12 @@ export async function mapView() {
 
     map.on('click', (e) => {
       const onParcel = map.queryRenderedFeatures(e.point, { layers: ['parcels-fill'] }).length > 0
-      if (currentPopup && !onParcel) {
-        currentPopup.remove()
-        currentPopup = null
+      if (!onParcel) {
+        closeBottomSheet()
+        if (currentPopup) {
+          currentPopup.remove()
+          currentPopup = null
+        }
       }
     })
 
@@ -95,7 +98,8 @@ function openPopup(id, feature) {
     currentPopup.remove()
     currentPopup = null
   }
-  currentPopup = showPopup(map, id, feature, () => {})
+  closeBottomSheet()
+  openBottomSheet(id)
 }
 
 /** Show a photograph in a popup at its geographic location. */
@@ -128,6 +132,8 @@ function showPhotoPopup(id, photoSrc, coords) {
 /** Clean up listeners when leaving the view. */
 export function teardownMapView() {
   window.removeEventListener('resize', onResize)
+  closeBottomSheet()
+  teardownBottomSheet()
   if (currentPopup) {
     currentPopup.remove()
     currentPopup = null
