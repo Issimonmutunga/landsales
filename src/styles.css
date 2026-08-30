@@ -145,6 +145,11 @@ body {
 
 .pp .pp-photo--placeholder {
   height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+  background: var(--color-brand-soft);
 }
 
 .pp .pp-body {
@@ -214,6 +219,9 @@ body {
 .pp .pp-cta {
   margin-top: 14px;
   width: 100%;
+  display: block;
+  text-align: center;
+  text-decoration: none;
   border: none;
   background: var(--color-brand);
   color: #fff;
@@ -225,6 +233,8 @@ body {
   cursor: pointer;
 }
 
-.pp .pp-cta:hover {
+.pp .pp-cta:hover,
+.pp .pp-cta:focus-visible {
   background: #1d6a3c;
+  outline: none;
 }

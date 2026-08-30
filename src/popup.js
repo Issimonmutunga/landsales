@@ -37,7 +37,13 @@ export function buildPopupNode(id, { onView } = {}) {
       <img class="pp-photo" src="${photo}" alt="${id} land photo" loading="lazy" />
     `
   } else {
-    photoBlock = `<div class="pp-photo pp-photo--placeholder"></div>`
+    photoBlock = `<div class="pp-photo pp-photo--placeholder" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <circle cx="9" cy="10" r="1.6"/>
+          <path d="M3 17l5-4 4 3 3-2 6 4"/>
+        </svg>
+      </div>`
   }
 
   let specs = ''
@@ -76,15 +82,17 @@ export function buildPopupNode(id, { onView } = {}) {
         <span class="pp-price">${price || ''}</span>
       </div>
       ${items.length ? `<div class="pp-specs">${specs}</div>` : ''}
-      <button class="pp-cta" data-action="view">View property</button>
+      <a class="pp-cta" href="/plot/${id}" data-action="view">View property</a>
     </div>
   `
 
   const viewBtn = node.querySelector('[data-action="view"]')
   if (viewBtn && onView) {
-    viewBtn.addEventListener('click', () => {
-      const href = viewBtn.getAttribute('data-href') || `/plot/${id}`
-      window.location.href = href
+    viewBtn.addEventListener('click', (e) => {
+      if (e) {
+        e.preventDefault()
+        window.location.href = viewBtn.getAttribute('href')
+      }
     })
   }
   return node
