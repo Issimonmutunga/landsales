@@ -11,6 +11,7 @@ import { getParcelGeometry } from '../parcels.js'
 import { mountStatus } from '../ui.js'
 import { formatPrice, formatStatus, formatSize } from '../format.js'
 import { heroPhoto, photoList, photoImgAttrs } from '../photos.js'
+import { setSeo } from '../seo.js'
 
 let map = null
 let resizeHandler = null
@@ -45,6 +46,7 @@ export async function propertyView(id, app) {
   const partial = !meta || !bounds
   renderDetail(app, id, meta, bounds, partial)
   document.title = documentTitle(id, meta)
+  setPropertySeo(id, meta)
 
   if (bounds) {
     initDetailMap(app, id, bounds)
@@ -266,6 +268,26 @@ function documentTitle(id, meta) {
   return `${id}${area} — ${meta?.status === 'available' ? 'Land for sale' : 'Sold land'} | ${CONFIG.site.name}`
 }
 
+function setPropertySeo(id, meta) {
+  const price = formatPrice(meta?.price, meta?.currency)
+  const statusLabel = formatStatus(meta?.status)
+  const desc = [
+    id,
+    statusLabel,
+    meta?.size ? `(${meta.size})` : null,
+    price ? `at ${price}` : null,
+    meta?.description || null,
+  ]
+    .filter(Boolean)
+    .join(' - ')
+    .slice(0, 200)
+  setSeo({
+    title: documentTitle(id, meta),
+    description: desc,
+    url: `${CONFIG.site.domain.replace(/\/$/, '')}/plot/${id}`,
+    image: heroPhoto(id, meta?.photos),
+  })
+}
 function walk(coords, fn) {
   if (typeof coords[0] === 'number') {
     fn(coords[0], coords[1])

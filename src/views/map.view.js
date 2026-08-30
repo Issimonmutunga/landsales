@@ -13,6 +13,7 @@ import { photoImgAttrs } from '../photos.js'
 import { buildFilterBar } from '../filterBar.js'
 import { visibleIds, idFilterExpr, PARCEL_FILTER_LAYERS } from '../filters.js'
 import { openBottomSheet, closeBottomSheet, teardownBottomSheet } from '../bottomSheet.js'
+import { setSeo, homeSeo } from '../seo.js'
 
 let currentPopup = null
 let map = null
@@ -20,6 +21,7 @@ let ctx = null
 
 /** Render the map view into #app. */
 export async function mapView() {
+  setSeo(homeSeo())
   const app = document.getElementById('app')
   app.innerHTML = ''
 
