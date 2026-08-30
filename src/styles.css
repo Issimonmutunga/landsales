@@ -1,0 +1,84 @@
+:root {
+  --color-bg: #f7f8f6;
+  --color-surface: #ffffff;
+  --color-ink: #16241b;
+  --color-muted: #5b6b60;
+  --color-line: #e3e7e2;
+  --color-brand: #14532d;
+  --color-brand-soft: #e7f0e9;
+  --color-sold: #9aa49c;
+  --color-shadow: 0 10px 30px rgba(20, 40, 30, 0.12);
+
+  --radius: 14px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font);
+  color: var(--color-ink);
+  background: var(--color-bg);
+}
+
+#app {
+  height: 100%;
+}
+
+.map-root {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+.brand {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  box-shadow: var(--color-shadow);
+}
+
+.brand-mark {
+  width: 26px;
+  height: 26px;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: var(--color-brand);
+}
+
+.status {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: var(--color-shadow);
+  font-size: 13px;
+  color: var(--color-muted);
+}
