@@ -1,7 +1,6 @@
 import './styles.css'
 import { matchRoute } from './router.js'
 import { mapView, teardownMapView } from './views/map.view.js'
-import { propertyView, teardownPropertyView } from './views/property.view.js'
 
 /** Teardown for the view that is currently displayed. */
 let currentTeardown = null
@@ -30,6 +29,7 @@ async function dispatch() {
   }
 
   if (route.name === 'property') {
+    const { propertyView, teardownPropertyView } = await import('./views/property.view.js')
     currentTeardown = teardownPropertyView
     await propertyView(route.id, app)
   } else {
