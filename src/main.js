@@ -1,15 +1,29 @@
 import './styles.css'
 import { CONFIG } from './config.js'
+import { createMap } from './map.js'
+import { loadProperties } from './properties.js'
+import { mountApp, mountStatus } from './ui.js'
 
-document.querySelector('#app').innerHTML = `
-  <div class="map-root">
-    <div id="map"></div>
-    <header class="brand">
-      <img src="/icons/favicon.svg" alt="LandSales" class="brand-mark" />
-      <span class="brand-name">${CONFIG.site.name}</span>
-    </header>
-    <div class="status">
-      <span>Loading map…</span>
-    </div>
-  </div>
-`
+async function init() {
+  mountApp()
+  const status = mountStatus()
+
+  try {
+    await loadProperties()
+
+    const { map } = await createMap(document.getElementById('map'), {
+      onReady: () => {
+        status.textContent = `${CONFIG.site.tagline} — click a parcel to explore it.`
+        setTimeout(() => status.remove(), 4000)
+      },
+    })
+
+    window.addEventListener('resize', () => map.resize())
+  } catch (err) {
+    console.error(err)
+    status.textContent = err.message || 'Unable to load the map.'
+    status.classList.add('status--error')
+  }
+}
+
+init()

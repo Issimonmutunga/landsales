@@ -1,0 +1,191 @@
+{
+  "P01": {
+    "name": "Plot P01",
+    "status": "available",
+    "price": 3200000,
+    "currency": "KES",
+    "size": "0.50 acre",
+    "size_hectares": 0.2,
+    "description": "A clear, gently sloping parcel with road access from the west and water available nearby. Ideal for a single homestead or a small residential development.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.2 },
+      { "name": "St. John's Primary School", "distance_km": 1.1 },
+      { "name": "Nanyuki River", "distance_km": 2.4 }
+    ],
+    "photos": ["/images/P01/hero.webp", "/images/P01/view.webp"]
+  },
+  "P02": {
+    "name": "Plot P02",
+    "status": "available",
+    "price": 2850000,
+    "currency": "KES",
+    "size": "0.40 acre",
+    "size_hectares": 0.16,
+    "description": "Corner parcel with excellent road frontage on two sides. Slightly elevated with open views across the surrounding farmland.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.6 },
+      { "name": "St. John's Primary School", "distance_km": 1.4 }
+    ],
+    "photos": ["/images/P02/hero.webp"]
+  },
+  "P03": {
+    "name": "Plot P03",
+    "status": "sold",
+    "price": 2750000,
+    "currency": "KES",
+    "size": "0.45 acre",
+    "size_hectares": 0.18,
+    "description": "Sold. This parcel was previously available with water access and a well-defined boundary.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.9 }
+    ],
+    "photos": []
+  },
+  "P04": {
+    "name": "Plot P04",
+    "status": "available",
+    "price": 3600000,
+    "currency": "KES",
+    "size": "0.55 acre",
+    "size_hectares": 0.22,
+    "description": "A larger parcel with mature boundary hedges and a gentle slope. Road access from the north and water connection available at the roadside.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.0 },
+      { "name": "Nanyuki River", "distance_km": 2.1 },
+      { "name": "Nanyuki Airstrip", "distance_km": 5.5 }
+    ],
+    "photos": ["/images/P04/hero.webp", "/images/P04/road.webp", "/images/P04/view.webp"]
+  },
+  "P05": {
+    "name": "Plot P05",
+    "status": "sold",
+    "price": 2400000,
+    "currency": "KES",
+    "size": "0.35 acre",
+    "size_hectares": 0.14,
+    "description": "Sold. A compact parcel with water available nearby.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.5 }
+    ],
+    "photos": []
+  },
+  "P06": {
+    "name": "Plot P06",
+    "status": "available",
+    "price": 3100000,
+    "currency": "KES",
+    "size": "0.50 acre",
+    "size_hectares": 0.2,
+    "description": "Sunny parcel on a quiet lane with a good mix of open ground and established trees. Water is available at the boundary.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.3 },
+      { "name": "Nanyuki River", "distance_km": 2.2 }
+    ],
+    "photos": ["/images/P06/hero.webp"]
+  },
+  "P07": {
+    "name": "Plot P07",
+    "status": "available",
+    "price": 5800000,
+    "currency": "KES",
+    "size": "1.00 acre",
+    "size_hectares": 0.4,
+    "description": "A full acre with generous road frontage along the main access road. Well suited to a family home with room for gardens or a small farm.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 3.8 },
+      { "name": "Nanyuki Airstrip", "distance_km": 5.2 }
+    ],
+    "photos": ["/images/P07/hero.webp", "/images/P07/view.webp"]
+  },
+  "P08": {
+    "name": "Plot P08",
+    "status": "available",
+    "price": 2950000,
+    "currency": "KES",
+    "size": "0.40 acre",
+    "size_hectares": 0.16,
+    "description": "A neat parcel tucked at the end of a lane with road access and water nearby. Quiet and private.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.7 }
+    ],
+    "photos": ["/images/P08/hero.webp"]
+  },
+  "P09": {
+    "name": "Plot P09",
+    "status": "sold",
+    "price": 2300000,
+    "currency": "KES",
+    "size": "0.30 acre",
+    "size_hectares": 0.12,
+    "description": "Sold. A compact corner parcel with road frontage.",
+    "road_access": true,
+    "water": false,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.8 }
+    ],
+    "photos": []
+  },
+  "P10": {
+    "name": "Plot P10",
+    "status": "available",
+    "price": 3400000,
+    "currency": "KES",
+    "size": "0.50 acre",
+    "size_hectares": 0.2,
+    "description": "A well-shaped level parcel close to the community water point, with road access from the east. Ready to build on.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.1 },
+      { "name": "St. John's Primary School", "distance_km": 1.2 }
+    ],
+    "photos": ["/images/P10/hero.webp", "/images/P10/road.webp"]
+  },
+  "P11": {
+    "name": "Plot P11",
+    "status": "available",
+    "price": 2700000,
+    "currency": "KES",
+    "size": "0.40 acre",
+    "size_hectares": 0.16,
+    "description": "A pleasant parcel with a slight slope and mature trees along the boundary. Water available nearby.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.4 }
+    ],
+    "photos": ["/images/P11/hero.webp"]
+  },
+  "P12": {
+    "name": "Plot P12",
+    "status": "available",
+    "price": 3500000,
+    "currency": "KES",
+    "size": "0.55 acre",
+    "size_hectares": 0.22,
+    "description": "A spacious corner parcel with road access on two sides and excellent natural light throughout the day.",
+    "road_access": true,
+    "water": true,
+    "landmarks": [
+      { "name": "Nanyuki Town Centre", "distance_km": 4.2 },
+      { "name": "Nanyuki River", "distance_km": 2.5 }
+    ],
+    "photos": ["/images/P12/hero.webp", "/images/P12/view.webp"]
+  }
+}

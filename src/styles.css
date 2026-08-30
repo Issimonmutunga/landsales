@@ -32,14 +32,32 @@ body {
 }
 
 .map-root {
-  position: relative;
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  inset: 0;
 }
 
 #map {
   position: absolute;
   inset: 0;
+}
+
+.maplibregl-canvas {
+  outline: none;
+}
+
+.maplibregl-ctrl-group {
+  border-radius: 10px !important;
+  box-shadow: var(--color-shadow) !important;
+  border: none !important;
+  overflow: hidden;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .brand {
@@ -81,4 +99,9 @@ body {
   box-shadow: var(--color-shadow);
   font-size: 13px;
   color: var(--color-muted);
+}
+
+.status--error {
+  color: #9b1c1c;
+  background: #fdecec;
 }
