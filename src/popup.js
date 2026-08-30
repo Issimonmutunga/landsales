@@ -5,7 +5,7 @@
  */
 import maplibregl from 'maplibre-gl'
 import { getProperty } from './properties.js'
-import { heroPhoto } from './photos.js'
+import { heroPhoto, photoImgAttrs } from './photos.js'
 import { formatPrice, formatStatus, formatSize } from './format.js'
 import { CONFIG } from './config.js'
 
@@ -33,8 +33,10 @@ export function buildPopupNode(id, { onView } = {}) {
 
   let photoBlock = ''
   if (photo) {
+    const attrs = photoImgAttrs(photo, { eager: true })
     photoBlock = `
-      <img class="pp-photo" src="${photo}" alt="${id} land photo" loading="lazy" />
+      <img class="pp-photo" src="${attrs.src}" srcset="${attrs.srcset}" sizes="${attrs.sizes}"
+        loading="${attrs.loading}" decoding="${attrs.decoding}" alt="${id} land photo" />
     `
   } else {
     photoBlock = `<div class="pp-photo pp-photo--placeholder" aria-hidden="true">

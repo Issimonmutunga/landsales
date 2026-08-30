@@ -10,7 +10,7 @@ import { loadProperties, getProperty } from '../properties.js'
 import { getParcelGeometry } from '../parcels.js'
 import { mountStatus } from '../ui.js'
 import { formatPrice, formatStatus, formatSize } from '../format.js'
-import { heroPhoto, photoList } from '../photos.js'
+import { heroPhoto, photoList, photoImgAttrs } from '../photos.js'
 
 let map = null
 let resizeHandler = null
@@ -173,12 +173,14 @@ function galleryHtml(id, meta) {
   const list = photos.length ? photos : hero ? [hero] : []
   return (
     list
-      .map(
-        (p, i) => `
+      .map((p, i) => {
+        const a = photoImgAttrs(p)
+        return `
       <figure class="pv-shot">
-        <img src="${p}" alt="${id} photograph ${i + 1}" loading="lazy" />
-      </figure>`,
-      )
+        <img src="${a.src}" srcset="${a.srcset}" sizes="${a.sizes}"
+          loading="${a.loading}" decoding="${a.decoding}" alt="${id} photograph ${i + 1}" />
+      </figure>`
+      })
       .join('') || ''
   )
 }

@@ -4,10 +4,13 @@
  * and the property popup. Delegates to /plot/:id for full property views.
  */
 import { CONFIG } from '../config.js'
+import maplibregl from 'maplibre-gl'
 import { createMap } from '../map.js'
 import { loadProperties } from '../properties.js'
 import { mountBrand, mountStatus } from '../ui.js'
 import { showPopup } from '../popup.js'
+import { addPhotoMarkers } from '../photoMarkers.js'
+import { photoImgAttrs } from '../photos.js'
 
 let currentPopup = null
 let map = null
@@ -37,9 +40,10 @@ export async function mapView() {
         ctx.flyToId(id, feature)
         openPopup(id, feature)
       },
-      onReady: () => {
+      onReady: async () => {
         status.textContent = `${CONFIG.site.tagline} — click a parcel to explore it.`
         setTimeout(() => status.remove(), 4000)
+        await addPhotoMarkers(map, { onShowPhoto: showPhotoPopup })
       },
     })
     map = ctx.map
@@ -71,6 +75,33 @@ function openPopup(id, feature) {
     currentPopup = null
   }
   currentPopup = showPopup(map, id, feature, () => {})
+}
+
+/** Show a photograph in a popup at its geographic location. */
+function showPhotoPopup(id, photoSrc, coords) {
+  if (currentPopup) {
+    currentPopup.remove()
+    currentPopup = null
+  }
+  const attrs = photoImgAttrs(photoSrc, { eager: true })
+  const node = document.createElement('div')
+  node.className = 'ph-popup'
+  node.innerHTML = `
+    <div class="ph-wrap">
+      <img src="${attrs.src}" srcset="${attrs.srcset}" sizes="${attrs.sizes}" alt="Photograph near ${id}" class="ph-img" />
+      <div class="ph-caption">${id} — location photo</div>
+    </div>
+  `
+  const popup = new maplibregl.Popup({
+    closeButton: true,
+    closeOnClick: true,
+    maxWidth: '360px',
+    offset: 14,
+  })
+    .setLngLat(coords)
+    .setDOMContent(node)
+    .addTo(map)
+  currentPopup = popup
 }
 
 /** Clean up listeners when leaving the view. */

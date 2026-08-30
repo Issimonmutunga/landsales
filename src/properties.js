@@ -58,6 +58,11 @@ export function getProperty(id) {
   return properties[id]
 }
 
+/** All loaded property metadata keyed by parcel ID. */
+export function getAllProperties() {
+  return properties || {}
+}
+
 /** Number of properties with a given status. */
 export function countByStatus(status) {
   if (!properties) return 0

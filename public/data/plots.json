@@ -10,11 +10,33 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.2 },
-      { "name": "St. John's Primary School", "distance_km": 1.1 },
-      { "name": "Nanyuki River", "distance_km": 2.4 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.2
+      },
+      {
+        "name": "St. John's Primary School",
+        "distance_km": 1.1
+      },
+      {
+        "name": "Nanyuki River",
+        "distance_km": 2.4
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P01/hero.webp",
+      "/images/P01/view.webp"
+    ],
+    "photo_coords": [
+      [
+        37.0209,
+        -0.1191
+      ],
+      [
+        37.0209,
+        -0.1173
+      ]
+    ]
   },
   "P02": {
     "name": "Plot P02",
@@ -27,10 +49,19 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.6 },
-      { "name": "St. John's Primary School", "distance_km": 1.4 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.6
+      },
+      {
+        "name": "St. John's Primary School",
+        "distance_km": 1.4
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P02/hero.webp"
+    ],
+    "photo_coords": []
   },
   "P03": {
     "name": "Plot P03",
@@ -43,9 +74,15 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.9 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.9
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P03/hero.webp"
+    ],
+    "photo_coords": []
   },
   "P04": {
     "name": "Plot P04",
@@ -58,11 +95,38 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.0 },
-      { "name": "Nanyuki River", "distance_km": 2.1 },
-      { "name": "Nanyuki Airstrip", "distance_km": 5.5 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4
+      },
+      {
+        "name": "Nanyuki River",
+        "distance_km": 2.1
+      },
+      {
+        "name": "Nanyuki Airstrip",
+        "distance_km": 5.5
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P04/hero.webp",
+      "/images/P04/road.webp",
+      "/images/P04/view.webp"
+    ],
+    "photo_coords": [
+      [
+        37.0209,
+        -0.1173
+      ],
+      [
+        37.0209,
+        -0.1155
+      ],
+      [
+        37.0227,
+        -0.1173
+      ]
+    ]
   },
   "P05": {
     "name": "Plot P05",
@@ -75,9 +139,15 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.5 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.5
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P05/hero.webp"
+    ],
+    "photo_coords": []
   },
   "P06": {
     "name": "Plot P06",
@@ -90,10 +160,19 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.3 },
-      { "name": "Nanyuki River", "distance_km": 2.2 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.3
+      },
+      {
+        "name": "Nanyuki River",
+        "distance_km": 2.2
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P06/hero.webp"
+    ],
+    "photo_coords": []
   },
   "P07": {
     "name": "Plot P07",
@@ -106,10 +185,29 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 3.8 },
-      { "name": "Nanyuki Airstrip", "distance_km": 5.2 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 3.8
+      },
+      {
+        "name": "Nanyuki Airstrip",
+        "distance_km": 5.2
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P07/hero.webp",
+      "/images/P07/view.webp"
+    ],
+    "photo_coords": [
+      [
+        37.0218,
+        -0.1155
+      ],
+      [
+        37.0218,
+        -0.1128
+      ]
+    ]
   },
   "P08": {
     "name": "Plot P08",
@@ -122,9 +220,15 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.7 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.7
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P08/hero.webp"
+    ],
+    "photo_coords": []
   },
   "P09": {
     "name": "Plot P09",
@@ -137,9 +241,15 @@
     "road_access": true,
     "water": false,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.8 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.8
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P09/hero.webp"
+    ],
+    "photo_coords": []
   },
   "P10": {
     "name": "Plot P10",
@@ -152,10 +262,29 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.1 },
-      { "name": "St. John's Primary School", "distance_km": 1.2 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.1
+      },
+      {
+        "name": "St. John's Primary School",
+        "distance_km": 1.2
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P10/hero.webp",
+      "/images/P10/road.webp"
+    ],
+    "photo_coords": [
+      [
+        37.0227,
+        -0.1137
+      ],
+      [
+        37.0227,
+        -0.1119
+      ]
+    ]
   },
   "P11": {
     "name": "Plot P11",
@@ -168,9 +297,15 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.4 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.4
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P11/hero.webp"
+    ],
+    "photo_coords": []
   },
   "P12": {
     "name": "Plot P12",
@@ -183,9 +318,28 @@
     "road_access": true,
     "water": true,
     "landmarks": [
-      { "name": "Nanyuki Town Centre", "distance_km": 4.2 },
-      { "name": "Nanyuki River", "distance_km": 2.5 }
+      {
+        "name": "Nanyuki Town Centre",
+        "distance_km": 4.2
+      },
+      {
+        "name": "Nanyuki River",
+        "distance_km": 2.5
+      }
     ],
-    "photos": []
+    "photos": [
+      "/images/P12/hero.webp",
+      "/images/P12/view.webp"
+    ],
+    "photo_coords": [
+      [
+        37.0245,
+        -0.1137
+      ],
+      [
+        37.0245,
+        -0.1119
+      ]
+    ]
   }
 }
