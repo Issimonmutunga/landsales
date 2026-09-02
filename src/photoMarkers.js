@@ -13,8 +13,8 @@ const cameraIcon =
   "data:image/svg+xml," +
   encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26">
-      <circle cx="12" cy="12" r="12" fill="#ffffff" stroke="#14532d" stroke-width="1.4"/>
-      <path d="M9 7h2l1.2-1.4h3.6A1.2 1.2 0 0117 6.8v7.4a1.2 1.2 0 01-1.2 1.2H8.2A1.2 1.2 0 017 14.2V8.2A1.2 1.2 0 018.2 7H9z" fill="#14532d"/>
+      <circle cx="12" cy="12" r="12" fill="#ffffff" stroke="#7a5538" stroke-width="1.4"/>
+      <path d="M9 7h2l1.2-1.4h3.6A1.2 1.2 0 0117 6.8v7.4a1.2 1.2 0 01-1.2 1.2H8.2A1.2 1.2 0 017 14.2V8.2A1.2 1.2 0 018.2 7H9z" fill="#7a5538"/>
       <circle cx="12" cy="11" r="2.6" fill="#ffffff"/>
     </svg>`,
   )

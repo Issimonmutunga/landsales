@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /plot/
 
-Sitemap: https://landsales.pages.dev/sitemap.xml
+Sitemap: https://landsales.besimonmutunga.workers.dev/sitemap.xml

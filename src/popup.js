@@ -9,8 +9,8 @@ import { heroPhoto, photoImgAttrs } from './photos.js'
 import { formatPrice, formatStatus, formatSize } from './format.js'
 import { CONFIG } from './config.js'
 
-const AVAILABLE_COLOR = '#14532d'
-const SOLD_COLOR = '#8a938c'
+const AVAILABLE_COLOR = '#7a5538'
+const SOLD_COLOR = '#673515'
 
 /**
  * Build the popup DOM node for a parcel.
@@ -40,11 +40,10 @@ export function buildPopupNode(id, { onView } = {}) {
     `
   } else {
     photoBlock = `<div class="pp-photo pp-photo--placeholder" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.4">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.4">
           <rect x="3" y="4" width="18" height="16" rx="2"/>
-          <circle cx="9" cy="10" r="1.6"/>
-          <path d="M3 17l5-4 4 3 3-2 6 4"/>
         </svg>
+        <span class="pp-photo-label">Photo coming soon</span>
       </div>`
   }
 

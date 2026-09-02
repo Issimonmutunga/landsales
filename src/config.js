@@ -4,18 +4,18 @@
  */
 export const CONFIG = {
   site: {
-    name: 'LandSales',
+    name: 'Properties',
     tagline: 'Land for sale',
     description:
       'Explore available parcels of land on an interactive map. Zoom into individual plots, view photographs and surrounding geography, and share properties directly.',
-    domain: 'https://landsales.pages.dev',
+    domain: 'https://landsales.besimonmutunga.workers.dev',
   },
 
   seller: {
-    name: 'LandSales Agency',
+    name: 'Properties Agency',
     contactNumber: '+254 700 000 000',
     whatsappNumber: '254700000000',
-    email: 'sales@landsales.example',
+    email: 'sales@property.site',
   },
 
   currency: 'KES',

@@ -58,7 +58,7 @@ function renderDetail(app, id, meta, bounds, partial) {
   const price = formatPrice(meta?.price, meta?.currency)
   const statusLabel = formatStatus(meta?.status)
   const size = formatSize(meta?.size)
-  const statusColor = meta?.status === 'available' ? '#14532d' : '#8a938c'
+  const statusColor = meta?.status === 'available' ? '#7a5538' : '#673515'
 
   const description = meta?.description || 'No description has been provided for this parcel yet.'
 
@@ -82,7 +82,7 @@ function renderDetail(app, id, meta, bounds, partial) {
           .map(
             (lm) => `
           <li class="pv-landmark">
-            <span class="pv-lm-icon">${icon('pin')}</span>
+            <span class="pv-lm-icon">${landmarkIcon(lm.name)}</span>
             <span class="pv-lm-name">${escapeHtml(lm.name)}</span>
             <span class="pv-lm-dist">${
               lm.distance_km != null ? `${lm.distance_km} km` : ''
@@ -115,7 +115,6 @@ function renderDetail(app, id, meta, bounds, partial) {
           <span>Map</span>
         </a>
         <a class="brand-link" href="/" aria-label="${CONFIG.site.name} home">
-          <img src="/icons/favicon.svg" alt="" class="brand-mark" />
           <span class="brand-name">${CONFIG.site.name}</span>
         </a>
       </header>
@@ -210,7 +209,7 @@ function initDetailMap(app, id, parcelBounds) {
     zoom: 15,
     minZoom: CONFIG.map.minZoom,
     maxZoom: CONFIG.map.maxZoom,
-    attributionControl: true,
+    attributionControl: false,
   })
   map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
   map.touchZoomRotate.disableRotation()
@@ -230,13 +229,13 @@ function initDetailMap(app, id, parcelBounds) {
       id: 'p-fill',
       type: 'fill',
       source: 'p',
-      paint: { 'fill-color': '#b45309', 'fill-opacity': 0.28 },
+      paint: { 'fill-color': '#815a35', 'fill-opacity': 0.18 },
     })
     map.addLayer({
       id: 'p-line',
       type: 'line',
       source: 'p',
-      paint: { 'line-color': '#b45309', 'line-width': 3, 'line-opacity': 0.95 },
+      paint: { 'line-color': '#7a5538', 'line-width': 3, 'line-opacity': 0.95 },
     })
     const center = map.getSource('p') ? parcelBounds.center : [0, 0]
     map.flyTo({ center, zoom: 15, duration: 0 })
@@ -303,11 +302,21 @@ function escapeHtml(str) {
   )
 }
 
+function landmarkIcon(name) {
+  const n = String(name || '').toLowerCase()
+  if (/school|academy|university|college/.test(n)) return icon('school')
+  if (/river|stream|lake|dam|lake/.test(n)) return icon('water')
+  if (/centre|center|town|mall|market|hospital|office/.test(n)) return icon('town')
+  return icon('pin')
+}
+
 function icon(name) {
   const paths = {
     road: '<path d="M4 19l5-5M8 15l3-3M12 12l5-5M16 8l4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
     water: '<path d="M12 3C8 7 5 10 5 13a7 7 0 0014 0c0-3-3-6-7-10z" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     pin: '<path d="M12 21s-6-5.2-6-10a6 6 0 1112 0c0 4.8-6 10-6 10z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="11" r="2.2" fill="currentColor"/>',
+    school: '<path d="M3 21h18M5 21V9l7-4 7 4v12M9 21v-6h6v6M9 13.5v.01M15 13.5v.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    town: '<path d="M4 21V9l8-4 8 4v12M2 21h20M9 21v-4h6v4M10 10h.01M14 10h.01M10 14h.01M14 14h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     call: '<path d="M5 4h4l2 5-2.5 1.5a12 12 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
     wa: '<path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 9c-.5 0-.9.5-.7 1 .9 2.4 2.8 4.3 5.2 5.2.5.2 1-.2 1-.7l.8-1.7c.2-.5-.4-1-.8-.8l-1.4.6a9 9 0 01-2.4-2.4l.6-1.4c.2-.4-.3-1-.8-.8z" fill="currentColor"/>',
   }

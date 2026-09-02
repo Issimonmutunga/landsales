@@ -3,13 +3,12 @@
  */
 import { CONFIG } from './config.js'
 
-/** Mount the top-letf brand header into `container` and return its element. */
+/** Mount the top-left brand header into `container` and return its element. */
 export function mountBrand(container = document.getElementById('app')) {
   const header = document.createElement('header')
   header.className = 'brand'
   header.innerHTML = `
     <a class="brand-link" href="/" aria-label="${CONFIG.site.name} home">
-      <img src="/icons/favicon.svg" alt="" class="brand-mark" />
       <span class="brand-name">${CONFIG.site.name}</span>
     </a>
   `

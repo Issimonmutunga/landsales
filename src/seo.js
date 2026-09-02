@@ -37,7 +37,7 @@ export function homeSeo() {
     title: `${SITE.name} — ${SITE.tagline} on an Interactive Map`,
     description: SITE.description,
     url: SITE.domain,
-    image: '/images/og-cover.webp',
+    image: '/images/P01/hero.webp',
   }
 }
 

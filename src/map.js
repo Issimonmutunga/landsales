@@ -18,6 +18,16 @@ const LAYERS = {
   labels: 'parcels-labels',
 }
 
+/* Earth-tone palette (mirrors the design tokens in styles.css).
+   MapLibre paint props need literal colours, so keep them in sync here. */
+const PALETTE = {
+  primary: '#7a5538',
+  primaryHover: '#513825',
+  sold: '#673515',
+  availableTint: '#815a35',
+  ink: '#2e2015',
+}
+
 /**
  * Create the map, load the parcel GeoJSON, draw it and fit to it.
  * @param {HTMLElement} container
@@ -34,9 +44,10 @@ export async function createMap(container, { onReady, onSelect, onHover } = {}) 
     zoom: CONFIG.map.startZoom,
     minZoom: CONFIG.map.minZoom,
     maxZoom: CONFIG.map.maxZoom,
-    attributionControl: true,
+    attributionControl: false,
   })
 
+  // Exactly one attribution control (compact) so credits appear once.
   map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
   map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: 'metric' }), 'bottom-left')
@@ -96,13 +107,28 @@ function addParcelSource(map, geojson) {
 }
 
 function addParcelLayers(map) {
+  // Base fill is data-driven: available parcels get a warm tint,
+  // sold parcels get the deep sold accent. Keep both low-opacity so
+  // the grid reads as data rather than solid blocks.
+  const fillColor = [
+    'match',
+    ['get', 'status'],
+    'sold',
+    PALETTE.sold,
+    PALETTE.availableTint,
+  ]
   map.addLayer({
     id: LAYERS.fill,
     type: 'fill',
     source: SOURCE_ID,
     paint: {
-      'fill-color': '#ffffff',
-      'fill-opacity': 0.25,
+      'fill-color': fillColor,
+      'fill-opacity': [
+        'case',
+        ['==', ['get', 'status'], 'sold'],
+        0.14,
+        0.11,
+      ],
     },
   })
   map.addLayer({
@@ -110,9 +136,9 @@ function addParcelLayers(map) {
     type: 'line',
     source: SOURCE_ID,
     paint: {
-      'line-color': '#14532d',
+      'line-color': PALETTE.primary,
       'line-width': 1.6,
-      'line-opacity': 0.9,
+      'line-opacity': 0.85,
     },
   })
   // Hover highlight layer (empty by default, filled via filter).
@@ -122,19 +148,19 @@ function addParcelLayers(map) {
     source: SOURCE_ID,
     filter: ['all', ['==', ['get', 'id'], '']],
     paint: {
-      'fill-color': '#166534',
-      'fill-opacity': 0.18,
+      'fill-color': PALETTE.primaryHover,
+      'fill-opacity': 0.16,
     },
   })
-  // Selected overlay drawn on top.
+  // Selected overlay drawn on top (visually distinct from sold).
   map.addLayer({
     id: LAYERS.selectedFill,
     type: 'fill',
     source: SOURCE_ID,
     filter: ['all', ['==', ['get', 'id'], '']],
     paint: {
-      'fill-color': '#b45309',
-      'fill-opacity': 0.35,
+      'fill-color': PALETTE.primaryHover,
+      'fill-opacity': 0.32,
     },
   })
   map.addLayer({
@@ -143,7 +169,7 @@ function addParcelLayers(map) {
     source: SOURCE_ID,
     filter: ['all', ['==', ['get', 'id'], '']],
     paint: {
-      'line-color': '#b45309',
+      'line-color': PALETTE.primaryHover,
       'line-width': 4,
       'line-opacity': 0.95,
     },
@@ -161,7 +187,7 @@ function addParcelLayers(map) {
       'text-allow-overlap': false,
     },
     paint: {
-      'text-color': '#164b2e',
+      'text-color': PALETTE.primary,
       'text-halo-color': '#ffffff',
       'text-halo-width': 1.6,
     },
