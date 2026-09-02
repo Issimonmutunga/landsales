@@ -47,8 +47,8 @@
   --space-6: 32px;
 
   /* Type */
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Type scale */
   --fs-xs: 12px;
