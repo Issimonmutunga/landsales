@@ -30,9 +30,9 @@ const PLANS = {
 }
 
 const PALETTES = {
-  field: ['#8fb573', '#4a7c3f', '#e8c87a'],
-  view: ['#cfe6ef', '#7fa8c9', '#5b7f9e'],
-  road: ['#b9b2a6', '#8a7f70', '#d8cbb0'],
+  field: ['#B58E65', '#7A5538', '#E8D5B5'],
+  view: ['#AD8963', '#815A35', '#DCC8A8'],
+  road: ['#9c7b55', '#6b4e33', '#c8a87c'],
 }
 
 function sceneSVG(kind, id, w, h) {
