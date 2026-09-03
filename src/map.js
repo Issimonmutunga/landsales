@@ -15,7 +15,6 @@ const LAYERS = {
   hoverFill: 'parcels-hover-fill',
   selectedFill: 'parcels-selected-fill',
   selectedLine: 'parcels-selected-line',
-  labels: 'parcels-labels',
 }
 
 /* Earth-tone palette (mirrors the design tokens in styles.css).
@@ -49,7 +48,13 @@ export async function createMap(container, { onReady, onSelect, onHover } = {}) 
 
   // Exactly one attribution control (compact) so credits appear once.
   map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
-  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
+  // Zoom control: bottom-right on small screens so it never competes with
+  // the top filter/search panel; top-right otherwise.
+  const navPosition =
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches
+      ? 'bottom-right'
+      : 'top-right'
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), navPosition)
   map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: 'metric' }), 'bottom-left')
   map.touchZoomRotate.disableRotation()
 
@@ -173,25 +178,6 @@ function addParcelLayers(map) {
       'line-width': 4,
       'line-opacity': 0.95,
     },
-  })
-  map.addLayer({
-    id: LAYERS.labels,
-    type: 'symbol',
-    source: SOURCE_ID,
-    layout: {
-      'text-field': ['get', 'id'],
-      'text-size': 12,
-      'text-font': ['Noto Sans Bold'],
-      'text-anchor': 'center',
-      'symbol-placement': 'point',
-      'text-allow-overlap': false,
-    },
-    paint: {
-      'text-color': PALETTE.primary,
-      'text-halo-color': '#ffffff',
-      'text-halo-width': 1.6,
-    },
-    minzoom: 12,
   })
 }
 
