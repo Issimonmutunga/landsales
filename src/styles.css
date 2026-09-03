@@ -928,17 +928,44 @@ body {
 @media (max-width: 640px) {
   .filters-host {
     top: 10px;
+    width: calc(100% - 20px);
     max-width: calc(100% - 20px);
   }
   .filterbar {
     flex-wrap: wrap;
     width: 100%;
+    padding: 8px;
+    gap: 8px;
+  }
+  .filterbar-seg {
+    display: flex;
+    width: 100%;
+    gap: 4px;
+    padding: 4px;
+    background: var(--color-surface-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  .filterbar-chip {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 9px 6px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .filterbar-chip.is-active {
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 1px 4px rgba(81, 56, 37, 0.25);
   }
   .filterbar-search {
     flex: 1 0 100%;
+    margin-top: 2px;
   }
   .filterbar-search input {
     width: 100%;
+    height: 44px;
+    padding: 10px 46px 10px 16px;
   }
 
   /* Keep the wordmark clear of the floating filter panel */
@@ -953,5 +980,13 @@ body {
   }
   .filters-host {
     top: 58px;
+  }
+
+  /* Property detail: reduce map height so content appears sooner */
+  .pv-map-wrap {
+    height: 260px;
+  }
+  .pv-head {
+    padding-top: 16px;
   }
 }
