@@ -53,8 +53,6 @@ function sceneSVG(kind, id, w, h) {
   <rect width="1200" height="800" fill="url(#sun)"/>
   <path d="M0 560 Q 300 500 600 560 T 1200 540 V 800 H 0 Z" fill="${g2}" opacity="0.85"/>
   <path d="M0 660 Q 400 600 800 660 T 1200 640 V 800 H 0 Z" fill="${g3}" opacity="0.7"/>
-  <rect x="40" y="40" width="1120" height="120" rx="16" fill="#ffffff" opacity="0.85"/>
-  <text x="60" y="122" font-family="Segoe UI, Arial, sans-serif" font-size="52" font-weight="700" fill="#1f2a20">${id} — ${kind} (demo)</text>
 </svg>`
 }
 
