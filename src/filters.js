@@ -71,7 +71,9 @@ function matchesQuery(id, meta, q) {
  * @param {string[]} ids
  */
 export function idFilterExpr(ids) {
-  return ['in', ['get', 'id'], ...ids]
+  if (ids.length === 0) return ['==', ['get', 'id'], '__none__']
+  if (ids.length === 1) return ['==', ['get', 'id'], ids[0]]
+  return ['in', ['get', 'id'], ['literal', ids]]
 }
 
 /** All parcel layer IDs that should be filtered for visibility. */

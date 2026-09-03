@@ -50,7 +50,7 @@ export async function mapView() {
       onReady: async () => {
         status.textContent = `${CONFIG.site.tagline} — click a parcel to explore it.`
         setTimeout(() => status.remove(), 4000)
-        buildFilterBar(filtersHost, applyFilters)
+        buildFilterBar(filtersHost, applyFilters, { onGeocode: flyToPlace })
         await addPhotoMarkers(map, { onShowPhoto: showPhotoPopup })
         applyFilters()
       },
@@ -90,6 +90,16 @@ function applyFilters() {
   for (const layer of PARCEL_FILTER_LAYERS) {
     if (map.getLayer(layer)) map.setFilter(layer, expr)
   }
+}
+
+/** Fly the map to a geocoded latitude/longitude (Nominatim lookups). */
+function flyToPlace(lat, lon, label) {
+  if (!map) return
+  map.flyTo({
+    center: [lon, lat],
+    zoom: 14,
+    duration: 1200,
+  })
 }
 
 // Minimal test hook so automated browser checks can drive filtering.

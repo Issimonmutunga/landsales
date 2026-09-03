@@ -63,16 +63,16 @@ export async function createMap(container, { onReady, onSelect, onHover } = {}) 
     if (onReady) onReady(map)
   })
 
-  const selectedFillFilter = ['all', ['==', ['get', 'id'], '']]
+  const selectedFillFilter = ['==', ['get', 'id'], '']
 
   function selectParcel(id) {
-    map.setFilter(LAYERS.selectedFill, ['all', ['==', ['get', 'id'], id]])
-    map.setFilter(LAYERS.selectedLine, ['all', ['==', ['get', 'id'], id]])
+    map.setFilter(LAYERS.selectedFill, ['==', ['get', 'id'], id])
+    map.setFilter(LAYERS.selectedLine, ['==', ['get', 'id'], id])
   }
 
   function clearSelection() {
-    map.setFilter(LAYERS.selectedFill, ['all', ['==', ['get', 'id'], '']])
-    map.setFilter(LAYERS.selectedLine, ['all', ['==', ['get', 'id'], '']])
+    map.setFilter(LAYERS.selectedFill, ['==', ['get', 'id'], ''])
+    map.setFilter(LAYERS.selectedLine, ['==', ['get', 'id'], ''])
   }
 
   /** Smoothly fly to a parcel while keeping geographic context. */
@@ -146,7 +146,7 @@ function addParcelLayers(map) {
     id: LAYERS.hoverFill,
     type: 'fill',
     source: SOURCE_ID,
-    filter: ['all', ['==', ['get', 'id'], '']],
+    filter: ['==', ['get', 'id'], ''],
     paint: {
       'fill-color': PALETTE.primaryHover,
       'fill-opacity': 0.16,
@@ -157,7 +157,7 @@ function addParcelLayers(map) {
     id: LAYERS.selectedFill,
     type: 'fill',
     source: SOURCE_ID,
-    filter: ['all', ['==', ['get', 'id'], '']],
+    filter: ['==', ['get', 'id'], ''],
     paint: {
       'fill-color': PALETTE.primaryHover,
       'fill-opacity': 0.32,
@@ -167,7 +167,7 @@ function addParcelLayers(map) {
     id: LAYERS.selectedLine,
     type: 'line',
     source: SOURCE_ID,
-    filter: ['all', ['==', ['get', 'id'], '']],
+    filter: ['==', ['get', 'id'], ''],
     paint: {
       'line-color': PALETTE.primaryHover,
       'line-width': 4,
@@ -204,9 +204,9 @@ function setupInteractions(map, { onSelect, onHover }) {
     if (hoveredId === id) return
     hoveredId = id
     if (hoveredId) {
-      map.setFilter(LAYERS.hoverFill, ['all', ['==', ['get', 'id'], hoveredId]])
+      map.setFilter(LAYERS.hoverFill, ['==', ['get', 'id'], hoveredId])
     } else {
-      map.setFilter(LAYERS.hoverFill, ['all', ['==', ['get', 'id'], '']])
+      map.setFilter(LAYERS.hoverFill, ['==', ['get', 'id'], ''])
     }
     if (onHover) onHover(id)
   })
@@ -215,7 +215,7 @@ function setupInteractions(map, { onSelect, onHover }) {
     map.getCanvas().style.cursor = ''
     if (hoveredId === null) return
     hoveredId = null
-    map.setFilter(LAYERS.hoverFill, ['all', ['==', ['get', 'id'], '']])
+    map.setFilter(LAYERS.hoverFill, ['==', ['get', 'id'], ''])
     if (onHover) onHover(null)
   })
 
