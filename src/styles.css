@@ -398,12 +398,18 @@ body {
 /* ---------- Property detail view ---------- */
 .pv {
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    'top'
+    'map'
+    'main';
   background: var(--color-bg);
 }
 
 .pv-topbar {
+  grid-area: top;
   position: sticky;
   top: 0;
   z-index: 20;
@@ -437,6 +443,7 @@ body {
 }
 
 .pv-map-wrap {
+  grid-area: map;
   position: relative;
   height: 300px;
   flex: none;
@@ -463,6 +470,7 @@ body {
 }
 
 .pv-main {
+  grid-area: main;
   max-width: 760px;
   width: 100%;
   margin: 0 auto;
@@ -703,12 +711,6 @@ body {
   display: block;
 }
 
-.ph-popup .ph-caption {
-  padding: 8px 10px;
-  font-size: 12.5px;
-  color: var(--color-muted);
-  font-weight: 600;
-}
 
 /* ---------- Filter / search bar ---------- */
 .filters-host {
@@ -894,6 +896,35 @@ body {
 }
 
 /* ---------- Responsive tweaks ---------- */
+@media (min-width: 860px) {
+  .pv {
+    height: 100vh;
+    grid-template-columns: minmax(360px, 46%) 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'top top'
+      'map main';
+    overflow: hidden;
+  }
+  .pv-topbar {
+    position: relative;
+  }
+  .pv-map-wrap {
+    height: 100%;
+    position: relative;
+  }
+  .pv-main {
+    max-width: none;
+    margin: 0;
+    padding: 34px 48px 48px;
+    overflow-y: auto;
+  }
+  .pv-contact {
+    position: static;
+    background: none;
+  }
+}
+
 @media (max-width: 640px) {
   .filters-host {
     top: 10px;

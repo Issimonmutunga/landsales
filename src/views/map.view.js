@@ -126,7 +126,6 @@ function showPhotoPopup(id, photoSrc, coords) {
   node.innerHTML = `
     <div class="ph-wrap">
       <img src="${attrs.src}" srcset="${attrs.srcset}" sizes="${attrs.sizes}" alt="Photograph near ${id}" class="ph-img" />
-      <div class="ph-caption">${id} — location photo</div>
     </div>
   `
   const popup = new maplibregl.Popup({
