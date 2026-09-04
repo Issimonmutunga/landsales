@@ -2,6 +2,10 @@
  * Central application configuration.
  * All site-wide configurable values live here.
  */
+
+/** Base URL of the application (Vite <base>), without a trailing slash. */
+export const BASE = import.meta.env.BASE_URL.replace(/\/+$/, '')
+
 export const CONFIG = {
   site: {
     name: 'Properties',

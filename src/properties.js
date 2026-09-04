@@ -3,8 +3,9 @@
  * and links it to the authoritative parcel geometry by parcel ID.
  */
 import { loadParcels, getAllParcelIds } from './parcels.js'
+import { BASE } from './config.js'
 
-const METADATA_URL = '/data/plots.json'
+const METADATA_URL = `${BASE}/data/plots.json`
 const SUPPORTED_STATUSES = ['available', 'sold']
 
 let properties = null

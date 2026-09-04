@@ -8,7 +8,9 @@
  * @typedef {import('geojson').FeatureCollection} FeatureCollection
  */
 
-const GEOJSON_URL = '/data/plots.geojson'
+import { BASE } from './config.js'
+
+const GEOJSON_URL = `${BASE}/data/plots.geojson`
 const SUPPORTED_STATUSES = ['available', 'sold']
 
 let geojson = null

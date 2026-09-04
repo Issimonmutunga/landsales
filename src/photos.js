@@ -9,7 +9,23 @@
  *   full image -> on demand (lazy loading + larger srcset candidate)
  */
 
-const IMG_BASE = '/images'
+import { BASE } from './config.js'
+
+const IMG_BASE = `${BASE}/images`
+
+/**
+ * Rebases an application-owned path so it is correct under the current
+ * deployment base. External (http/https) and already-based paths are left
+ * untouched.
+ * @param {string} path
+ */
+function rebase(path) {
+  if (!path) return path
+  if (/^https?:\/\//i.test(path)) return path
+  if (path.startsWith(BASE)) return path
+  if (path.startsWith('/')) return BASE + path
+  return path
+}
 
 /**
  * Resolve the hero photo for a parcel, or null.
@@ -18,13 +34,13 @@ const IMG_BASE = '/images'
  */
 export function heroPhoto(id, photos) {
   const list = Array.isArray(photos) && photos.length ? photos : []
-  if (list.length) return list[0]
+  if (list.length) return rebase(list[0])
   return `${IMG_BASE}/${id}/hero.webp`
 }
 
 /** All full-size photo paths for a parcel (from metadata), empty if none. */
 export function photoList(id, photos) {
-  return Array.isArray(photos) ? photos.slice() : []
+  return (Array.isArray(photos) ? photos : []).map(rebase)
 }
 
 /** Derive the thumbnail path from a full-size photo path. */

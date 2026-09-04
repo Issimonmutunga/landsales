@@ -7,7 +7,7 @@ import maplibregl from 'maplibre-gl'
 import { getProperty } from './properties.js'
 import { heroPhoto, photoImgAttrs } from './photos.js'
 import { formatPrice, formatStatus, formatSize } from './format.js'
-import { CONFIG } from './config.js'
+import { CONFIG, BASE } from './config.js'
 
 const AVAILABLE_COLOR = '#7a5538'
 const SOLD_COLOR = '#673515'
@@ -83,7 +83,7 @@ export function buildPopupNode(id, { onView } = {}) {
         <span class="pp-price">${price || ''}</span>
       </div>
       ${items.length ? `<div class="pp-specs">${specs}</div>` : ''}
-      <a class="pp-cta" href="/plot/${id}" data-action="view">View property</a>
+      <a class="pp-cta" href="${BASE}/plot/${id}" data-action="view">View property</a>
     </div>
   `
 

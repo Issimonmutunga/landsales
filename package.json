@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:standalone": "vite build --base=/",
+    "build:portfolio": "vite build --base=/demos/properties/",
     "preview": "vite preview"
   },
   "dependencies": {

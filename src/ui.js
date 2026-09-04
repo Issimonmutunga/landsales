@@ -1,14 +1,14 @@
 /**
  * Small DOM helpers for the chrome UI (app shell, brand header, status).
  */
-import { CONFIG } from './config.js'
+import { CONFIG, BASE } from './config.js'
 
 /** Mount the top-left brand header into `container` and return its element. */
 export function mountBrand(container = document.getElementById('app')) {
   const header = document.createElement('header')
   header.className = 'brand'
   header.innerHTML = `
-    <a class="brand-link" href="/" aria-label="${CONFIG.site.name} home">
+    <a class="brand-link" href="${BASE}/" aria-label="${CONFIG.site.name} home">
       <span class="brand-name">${CONFIG.site.name}</span>
     </a>
   `

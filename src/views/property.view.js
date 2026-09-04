@@ -5,7 +5,7 @@
  */
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { CONFIG } from '../config.js'
+import { CONFIG, BASE } from '../config.js'
 import { CompactAttributionControl } from '../map.js'
 import { loadProperties, getProperty } from '../properties.js'
 import { getParcelGeometry } from '../parcels.js'
@@ -107,11 +107,11 @@ function renderDetail(app, id, meta, bounds, partial) {
   app.innerHTML = `
     <div class="pv">
       <header class="pv-topbar">
-        <a class="pv-back" href="/" aria-label="Back to map">
+        <a class="pv-back" href="${BASE}/" aria-label="Back to map">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
           <span>Map</span>
         </a>
-        <a class="brand-link pv-brand" href="/" aria-label="${CONFIG.site.name} home">
+        <a class="brand-link pv-brand" href="${BASE}/" aria-label="${CONFIG.site.name} home">
           <span class="brand-name">${CONFIG.site.name}</span>
         </a>
       </header>
@@ -204,7 +204,7 @@ function renderNotFound(app, id) {
       <div class="pv-nf-inner">
         <h1>Property not found</h1>
         <p>We could not find parcel "${escapeHtml(id)}". It may have been removed.</p>
-        <a class="pv-btn pv-btn--primary" href="/">Back to the map</a>
+        <a class="pv-btn pv-btn--primary" href="${BASE}/">Back to the map</a>
       </div>
     </div>
   `
