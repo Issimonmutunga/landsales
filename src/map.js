@@ -233,19 +233,30 @@ function setupInteractions(map, { onSelect, onHover }) {
   })
 }
 
-/** Minimal attribution control that shows only a short credit. */
+/** Toggleable attribution: an info icon that expands to the short credit. */
 class CompactAttributionControl {
   onAdd(map) {
     this._map = map
     this._container = document.createElement('div')
     this._container.className = 'maplibregl-ctrl maplibregl-ctrl-attrib'
-    this._container.style.padding = '4px 6px'
-    this._container.style.fontSize = '10px'
-    this._container.style.color = '#555'
-    this._container.style.background = 'rgba(255, 255, 255, 0.7)'
-    this._container.style.borderRadius = '6px'
-    this._container.innerHTML =
+
+    const details = document.createElement('details')
+    details.className = 'maplibregl-ctrl-attrib-details'
+
+    const summary = document.createElement('summary')
+    summary.className = 'maplibregl-ctrl-attrib-button'
+    summary.setAttribute('title', 'Toggle attribution')
+    summary.setAttribute('aria-label', 'Toggle attribution')
+    summary.textContent = '\u24d8'
+
+    const inner = document.createElement('div')
+    inner.className = 'maplibregl-ctrl-attrib-inner'
+    inner.innerHTML =
       '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+
+    details.appendChild(summary)
+    details.appendChild(inner)
+    this._container.appendChild(details)
     return this._container
   }
   onRemove() {

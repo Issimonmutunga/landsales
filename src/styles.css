@@ -176,14 +176,40 @@ body {
 
 .maplibregl-ctrl-attrib a {
   color: var(--color-primary);
+  text-decoration: none;
 }
 
 .maplibregl-compact .maplibregl-ctrl-attrib-inner {
   font-size: var(--fs-xs);
 }
 
-.maplibregl-ctrl-attrib-button {
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-details {
+  user-select: none;
+}
+
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button {
+  width: 22px;
+  height: 22px;
+  margin: 3px;
+  background: none;
   color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button:hover {
+  background: var(--color-primary-soft);
+}
+
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-inner {
+  display: inline;
+  padding: 0 6px 0 2px;
 }
 
 .brand-link {
