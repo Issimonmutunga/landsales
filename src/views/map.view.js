@@ -3,7 +3,6 @@
  * map shell, mounts the brand UI, and wires parcel selection to fly-to
  * and the property popup. Delegates to /plot/:id for full property views.
  */
-import { CONFIG } from '../config.js'
 import maplibregl from 'maplibre-gl'
 import { createMap } from '../map.js'
 import { loadProperties } from '../properties.js'
@@ -48,7 +47,7 @@ export async function mapView() {
         openPopup(id, feature)
       },
       onReady: async () => {
-        status.textContent = `${CONFIG.site.tagline} — click a parcel to explore it.`
+        status.textContent = 'Property for sale - click on shape to find out more'
         setTimeout(() => status.remove(), 4000)
         buildFilterBar(filtersHost, applyFilters, { onGeocode: flyToPlace })
         await addPhotoMarkers(map, { onShowPhoto: showPhotoPopup })
