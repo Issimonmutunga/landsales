@@ -215,7 +215,7 @@ body {
 
 .brand-name {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 800;
   font-size: 11px;
   letter-spacing: 0.4px;
   color: var(--color-primary);
