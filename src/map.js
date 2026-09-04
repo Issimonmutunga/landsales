@@ -47,8 +47,9 @@ export async function createMap(container, { onReady, onSelect, onHover } = {}) 
     attributionControl: false,
   })
 
-  // Exactly one attribution control (compact) so credits appear once.
-  map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
+  // Custom compact attribution (kept short; the basemap license only
+  // requires an OpenStreetMap contributor credit).
+  map.addControl(new CompactAttributionControl(), 'bottom-right')
   // Zoom control: bottom-right on small screens so it never competes with
   // the top filter/search panel; top-right otherwise.
   const navPosition =
@@ -230,6 +231,29 @@ function setupInteractions(map, { onSelect, onHover }) {
     const feature = e.features[0]
     if (id && onSelect) onSelect(id, feature, e)
   })
+}
+
+/** Minimal attribution control that shows only a short credit. */
+class CompactAttributionControl {
+  onAdd(map) {
+    this._map = map
+    this._container = document.createElement('div')
+    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-attrib'
+    this._container.style.padding = '4px 6px'
+    this._container.style.fontSize = '10px'
+    this._container.style.color = '#555'
+    this._container.style.background = 'rgba(255, 255, 255, 0.7)'
+    this._container.style.borderRadius = '6px'
+    this._container.innerHTML =
+      '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+    return this._container
+  }
+  onRemove() {
+    if (this._container && this._container.parentNode) {
+      this._container.parentNode.removeChild(this._container)
+    }
+    this._map = undefined
+  }
 }
 
 function fitToParcels(map) {
