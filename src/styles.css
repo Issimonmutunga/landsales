@@ -196,17 +196,17 @@ body {
 
 .brand {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 16px;
+  left: 16px;
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  padding: 8px 14px;
-  border-radius: var(--radius);
-  box-shadow: var(--color-shadow);
+  gap: 6px;
+  background: rgba(255, 253, 249, 0.88);
+  backdrop-filter: blur(6px);
+  padding: 4px 9px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(81, 56, 37, 0.12);
 }
 
 .brand-mark {
@@ -216,9 +216,9 @@ body {
 
 .brand-name {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: 0.2px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.4px;
   color: var(--color-primary);
 }
 
@@ -715,23 +715,23 @@ body {
 /* ---------- Filter / search bar ---------- */
 .filters-host {
   position: absolute;
-  top: 14px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 15;
-  max-width: min(720px, calc(100% - 260px));
-  width: min(720px, calc(100% - 260px));
+  max-width: min(680px, calc(100% - 280px));
+  width: min(680px, calc(100% - 280px));
 }
 
 .filterbar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(8px);
   border-radius: var(--radius);
   box-shadow: var(--color-shadow);
-  padding: 7px 8px;
+  padding: 6px 6px;
   width: 100%;
 }
 
@@ -747,8 +747,8 @@ body {
   font-size: 13px;
   font-weight: 700;
   color: var(--color-muted);
-  padding: 8px 14px;
-  min-height: 40px;
+  padding: 7px 12px;
+  min-height: 38px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
@@ -774,13 +774,13 @@ body {
 .filterbar-search input {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 8px 60px 8px 14px;
+  padding: 6px 52px 6px 12px;
   font-family: inherit;
   font-size: 13px;
   color: var(--color-ink);
   background: var(--color-surface);
   width: 100%;
-  height: 40px;
+  height: 38px;
   outline: none;
 }
 
@@ -928,28 +928,28 @@ body {
 @media (max-width: 640px) {
   .filters-host {
     top: 10px;
-    width: calc(100% - 20px);
-    max-width: calc(100% - 20px);
+    width: calc(100% - 24px);
+    max-width: calc(100% - 24px);
   }
   .filterbar {
     flex-wrap: wrap;
     width: 100%;
-    padding: 8px;
-    gap: 8px;
+    padding: 5px;
+    gap: 5px;
   }
   .filterbar-seg {
     display: flex;
     width: 100%;
     gap: 4px;
-    padding: 4px;
+    padding: 3px;
     background: var(--color-surface-muted);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
   }
   .filterbar-chip {
     flex: 1 1 0;
     min-width: 0;
-    padding: 9px 6px;
+    padding: 8px 6px;
     text-align: center;
     white-space: nowrap;
   }
@@ -960,26 +960,28 @@ body {
   }
   .filterbar-search {
     flex: 1 0 100%;
-    margin-top: 2px;
+    margin-top: 0;
   }
   .filterbar-search input {
     width: 100%;
-    height: 44px;
-    padding: 10px 46px 10px 16px;
+    height: 42px;
+    padding: 9px 44px 9px 14px;
   }
 
   /* Keep the wordmark clear of the floating filter panel */
   .brand {
-    top: 10px;
-    left: 10px;
+    top: 12px;
+    left: 12px;
     z-index: 40;
-    padding: 6px 12px;
+    padding: 3px 8px;
+    background: rgba(255, 253, 249, 0.88);
+    box-shadow: 0 2px 8px rgba(81, 56, 37, 0.12);
   }
   .brand-name {
-    font-size: 15px;
+    font-size: 11px;
   }
   .filters-host {
-    top: 58px;
+    top: 54px;
   }
 
   /* Property detail: reduce map height so content appears sooner */
