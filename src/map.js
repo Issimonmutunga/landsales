@@ -233,32 +233,39 @@ function setupInteractions(map, { onSelect, onHover }) {
   })
 }
 
-/** Toggleable attribution: an info icon that expands to the short credit. */
+/** Toggleable attribution: an info icon that expands inline to the short credit. */
 class CompactAttributionControl {
   onAdd(map) {
     this._map = map
-    this._container = document.createElement('div')
-    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-attrib'
+    const container = document.createElement('div')
+    container.className = 'ls-attrib maplibregl-ctrl'
+    this._container = container
 
-    const details = document.createElement('details')
-    details.className = 'maplibregl-ctrl-attrib-details'
+    this._btn = document.createElement('button')
+    this._btn.type = 'button'
+    this._btn.className = 'ls-attrib-btn'
+    this._btn.setAttribute('aria-label', 'Toggle attribution')
+    this._btn.setAttribute('aria-expanded', 'false')
+    this._btn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/></svg>'
 
-    const summary = document.createElement('summary')
-    summary.className = 'maplibregl-ctrl-attrib-button'
-    summary.setAttribute('title', 'Toggle attribution')
-    summary.setAttribute('aria-label', 'Toggle attribution')
-    summary.textContent = '\u24d8'
-
-    const inner = document.createElement('div')
-    inner.className = 'maplibregl-ctrl-attrib-inner'
-    inner.innerHTML =
+    this._label = document.createElement('span')
+    this._label.className = 'ls-attrib-label'
+    this._label.innerHTML =
       '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
 
-    details.appendChild(summary)
-    details.appendChild(inner)
-    this._container.appendChild(details)
-    return this._container
+    this._btn.addEventListener('click', () => this.toggle())
+
+    container.appendChild(this._btn)
+    container.appendChild(this._label)
+    return container
   }
+
+  toggle() {
+    const open = this._container.classList.toggle('ls-attrib--open')
+    this._btn.setAttribute('aria-expanded', String(open))
+  }
+
   onRemove() {
     if (this._container && this._container.parentNode) {
       this._container.parentNode.removeChild(this._container)
