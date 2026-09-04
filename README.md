@@ -65,6 +65,30 @@ For git-connected deploys, configure the build command `npm run build` and keep 
 worker deploy (`wrangler.toml` + `src/worker.js`) as-is. Subsequent pushes trigger
 automatic redeployments.
 
+### Nested portfolio deployment (`/demos/properties/`)
+
+A second, separate Cloudflare Worker (`property-sales-portfolio`) serves the app
+under a nested base path without touching the standalone `landsales` Worker above.
+
+- `wrangler.toml` + `dist/` → **landsales** (base `/`, standalone) — unchanged.
+- `wrangler.portfolio.toml` + `dist-portfolio/` + `src/worker.portfolio.js` →
+  **property-sales-portfolio** (base `/demos/properties/`).
+
+```bash
+npm run build:standalone           # base=/  -> dist/
+npm run build:portfolio            # base=/demos/properties/ -> dist-portfolio/demos/properties
+npm run deploy:portfolio           # build:portfolio + wrangler deploy --config wrangler.portfolio.toml
+```
+
+The portfolio worker serves every path under `/demos/properties/` and SPA-falls-back
+to its nested `index.html`, so deep links like `/demos/properties/plot/P04` work.
+
+> **Do not publish a Vercel rewrite in front of the standalone `landsales` Worker.**
+> If the portfolio site must proxy the app under `/demos/properties/:path*`, point it
+> at the portfolio Worker (`property-sales-portfolio`) WITHOUT stripping the prefix,
+> because that build expects `/demos/properties` in its URLs. Verify the portfolio
+> Worker directly first (base path, deep link, assets, data, images) before wiring Vercel.
+
 ## Project structure
 
 ```

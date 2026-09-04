@@ -8,7 +8,10 @@
     "dev": "vite",
     "build": "vite build",
     "build:standalone": "vite build --base=/",
-    "build:portfolio": "vite build --base=/demos/properties/",
+    "clean:portfolio": "node -e \"require('fs').rmSync('dist-portfolio',{recursive:true,force:true}) && console.log('cleaned dist-portfolio')\"",
+    "build:portfolio": "npm run clean:portfolio && vite build --base=/demos/properties/ --outDir=dist-portfolio/demos/properties --emptyOutDir",
+    "deploy": "npx wrangler deploy",
+    "deploy:portfolio": "npm run build:portfolio && npx wrangler deploy --config wrangler.portfolio.toml",
     "preview": "vite preview"
   },
   "dependencies": {

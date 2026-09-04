@@ -1,0 +1,15 @@
+# Portfolio Worker for the nested /demos/properties/ build.
+# This is a SEPARATE Worker from `landsales` (see wrangler.toml) so it can
+# be built with base=/demos/properties/ and served independently without
+# affecting the existing standalone deployment.
+#
+# Deploy with: npm run deploy:portfolio
+name = "property-sales-portfolio"
+main = "src/worker.portfolio.js"
+compatibility_date = "2025-08-30"
+
+[assets]
+directory = "dist-portfolio"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = true
