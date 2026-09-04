@@ -234,7 +234,7 @@ function setupInteractions(map, { onSelect, onHover }) {
 }
 
 /** Toggleable attribution: an info icon that expands inline to the short credit. */
-class CompactAttributionControl {
+export class CompactAttributionControl {
   onAdd(map) {
     this._map = map
     const container = document.createElement('div')

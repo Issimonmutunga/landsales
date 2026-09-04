@@ -6,6 +6,7 @@
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { CONFIG } from '../config.js'
+import { CompactAttributionControl } from '../map.js'
 import { loadProperties, getProperty } from '../properties.js'
 import { getParcelGeometry } from '../parcels.js'
 import { mountStatus } from '../ui.js'
@@ -217,7 +218,7 @@ function initDetailMap(app, id, parcelBounds) {
     maxZoom: CONFIG.map.maxZoom,
     attributionControl: false,
   })
-  map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
+  map.addControl(new CompactAttributionControl(), 'bottom-right')
   map.touchZoomRotate.disableRotation()
 
   const feature = {
