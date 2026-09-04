@@ -151,7 +151,12 @@ function renderDetail(app, id, meta, bounds, partial) {
               <h2 class="pv-h2">Location</h2>
               <div class="pv-map-wrap">
                 <div id="pv-map" class="pv-map"></div>
-                <div class="pv-map-overlay"><span class="pp-id">${id}</span></div>
+                <div class="pv-map-overlay">
+                  <button type="button" class="pv-focus-btn" aria-label="Center ${id} on map">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                    <span>${id}</span>
+                  </button>
+                </div>
               </div>
               ${landmarksHtml}
             </section>
@@ -246,6 +251,13 @@ function initDetailMap(app, id, parcelBounds) {
     })
     const center = map.getSource('p') ? parcelBounds.center : [0, 0]
     map.flyTo({ center, zoom: 15, duration: 0 })
+
+    const focusBtn = document.querySelector('.pv-focus-btn')
+    if (focusBtn) {
+      focusBtn.addEventListener('click', () => {
+        map.flyTo({ center: parcelBounds.center, zoom: 15, duration: 600 })
+      })
+    }
   })
 
   resizeHandler = () => map.resize()

@@ -687,14 +687,32 @@ body {
   left: 14px;
   bottom: 14px;
   z-index: 5;
-  background: var(--color-surface);
+}
+
+.pv-focus-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 6px 13px;
+  background: var(--color-surface);
+  border: none;
   border-radius: var(--radius-pill);
   box-shadow: var(--color-shadow);
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: 0.4px;
   font-size: 14px;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.pv-focus-btn:hover {
+  background: var(--color-primary-soft);
+}
+
+.pv-focus-btn svg {
+  flex: none;
 }
 
 .pv-landmarks {
