@@ -62,44 +62,40 @@ function renderDetail(app, id, meta, bounds, partial) {
 
   const description = meta?.description || 'No description has been provided for this parcel yet.'
 
-  let specs = []
+  let factsHtml = ''
+  const facts = []
   if (meta?.road_access != null) {
-    specs.push({
-      icon: 'road',
-      label: meta.road_access ? 'Road access' : 'No road access',
-    })
+    facts.push(meta.road_access ? 'Road access' : 'No road access')
   }
   if (meta?.water != null) {
-    specs.push({ icon: 'water', label: meta.water ? 'Water nearby' : 'No water' })
+    facts.push(meta.water ? 'Water nearby' : 'No water')
   }
-
-  let landmarksHtml = ''
-  if (meta?.landmarks?.length) {
-    landmarksHtml = `<section class="pv-block">
-      <h2 class="pv-h2">Nearby places</h2>
-      <ul class="pv-landmarks">
-        ${meta.landmarks
-          .map(
-            (lm) => `
-          <li class="pv-landmark">
-            <span class="pv-lm-icon">${landmarkIcon(lm.name)}</span>
-            <span class="pv-lm-name">${escapeHtml(lm.name)}</span>
-            <span class="pv-lm-dist">${
-              lm.distance_km != null ? `${lm.distance_km} km` : ''
-            }</span>
-          </li>`,
-          )
-          .join('')}
+  if (facts.length) {
+    factsHtml = `<section class="pv-block">
+      <h2 class="pv-h2">Key facts</h2>
+      <ul class="pv-facts">
+        ${facts.map((f) => `<li>${escapeHtml(f)}</li>`).join('')}
       </ul>
     </section>`
   }
 
-  let specsHtml = specs.length
-    ? `<div class="pv-specs">${specs
-        .map(
-          (s) => `<span class="pv-spec">${icon(s.icon)}<span>${s.label}</span></span>`,
-        )
-        .join('')}</div>`
+  const landmarksHtml = meta?.landmarks?.length
+    ? `<section class="pv-block pv-nearby">
+        <h2 class="pv-h2">Nearby places</h2>
+        <ul class="pv-landmarks">
+          ${meta.landmarks
+            .map(
+              (lm) => `
+            <li class="pv-landmark">
+              <span class="pv-lm-name">${escapeHtml(lm.name)}</span>
+              <span class="pv-lm-dist">${
+                lm.distance_km != null ? `${lm.distance_km} km` : ''
+              }</span>
+            </li>`,
+            )
+            .join('')}
+        </ul>
+      </section>`
     : ''
 
   const whatsappHref = `https://wa.me/${CONFIG.seller.whatsappNumber}?text=${encodeURIComponent(
@@ -114,76 +110,86 @@ function renderDetail(app, id, meta, bounds, partial) {
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
           <span>Map</span>
         </a>
-        <a class="brand-link" href="/" aria-label="${CONFIG.site.name} home">
+        <a class="brand-link pv-brand" href="/" aria-label="${CONFIG.site.name} home">
           <span class="brand-name">${CONFIG.site.name}</span>
         </a>
       </header>
 
-      <div class="pv-map-wrap">
-        <div id="pv-map" class="pv-map"></div>
-        <div class="pv-map-overlay"><span class="pp-id">${id}</span></div>
-      </div>
-
       <main class="pv-main">
-        <div class="pv-head">
-          <div class="pv-id-row">
-            <span class="pv-id">${id}</span>
-            ${
-              statusLabel
-                ? `<span class="pv-badge" style="color:${statusColor};border-color:${statusColor}">${statusLabel}</span>`
-                : ''
-            }
+        <div class="pv-card">
+
+          <div class="pv-media">
+            <figure class="pv-hero">
+              ${heroImgHtml(id, meta)}
+            </figure>
+            ${thumbsHtml(id, meta)}
           </div>
-          ${size ? `<div class="pv-size">${size}</div>` : ''}
-          ${price ? `<div class="pv-price">${price}</div>` : ''}
-          ${specsHtml}
 
-          <section class="pv-block">
-            <h2 class="pv-h2">About this land</h2>
-            <p class="pv-desc">${escapeHtml(description)}</p>
-          </section>
+          <div class="pv-body">
+            <div class="pv-head">
+              <div class="pv-id-row">
+                <span class="pv-id">${id}</span>
+                ${
+                  statusLabel
+                    ? `<span class="pv-badge" style="color:${statusColor};border-color:${statusColor}">${statusLabel}</span>`
+                    : ''
+                }
+              </div>
+              ${price ? `<div class="pv-price">${price}</div>` : ''}
+              ${size ? `<div class="pv-size">${size}</div>` : ''}
+            </div>
 
-          ${landmarksHtml}
+            ${factsHtml}
 
-          ${
-            meta?.photos?.length
-              ? `<section class="pv-block">
-            <h2 class="pv-h2">Photographs</h2>
-            <div class="pv-gallery">${galleryHtml(id, meta)}</div>
-          </section>`
-              : ''
-          }
-        </div>
+            <section class="pv-block">
+              <h2 class="pv-h2">About this land</h2>
+              <p class="pv-desc">${escapeHtml(description)}</p>
+            </section>
 
-        <div class="pv-contact">
-          <a class="pv-btn pv-btn--primary" href="${whatsappHref}" target="_blank" rel="noopener">
-            ${icon('wa')} WhatsApp us
-          </a>
-          <a class="pv-btn pv-btn--ghost" href="${callHref}">
-            ${icon('call')} Call ${CONFIG.seller.contactNumber}
-          </a>
+            <section class="pv-block pv-location">
+              <h2 class="pv-h2">Location</h2>
+              <div class="pv-map-wrap">
+                <div id="pv-map" class="pv-map"></div>
+                <div class="pv-map-overlay"><span class="pp-id">${id}</span></div>
+              </div>
+              ${landmarksHtml}
+            </section>
+
+            <div class="pv-contact">
+              <a class="pv-btn pv-btn--primary" href="${whatsappHref}" target="_blank" rel="noopener">
+                ${icon('wa')} WhatsApp us
+              </a>
+              <a class="pv-btn pv-btn--ghost" href="${callHref}">
+                ${icon('call')} Call ${CONFIG.seller.contactNumber}
+              </a>
+            </div>
+          </div>
+
         </div>
       </main>
     </div>
   `
 }
 
-function galleryHtml(id, meta) {
-  const photos = photoList(id, meta.photos)
-  const hero = heroPhoto(id, meta.photos)
-  const list = photos.length ? photos : hero ? [hero] : []
-  return (
-    list
+function heroImgHtml(id, meta) {
+  const hero = heroPhoto(id, meta?.photos)
+  const a = photoImgAttrs(hero, { eager: true })
+  return `<img src="${a.src}" srcset="${a.srcset}" sizes="${a.sizes}"
+    loading="${a.loading}" decoding="${a.decoding}" alt="${id} photograph" />`
+}
+
+function thumbsHtml(id, meta) {
+  const photos = photoList(id, meta?.photos).slice(1)
+  if (!photos.length) return ''
+  return `<div class="pv-thumbs">
+    ${photos
       .map((p, i) => {
         const a = photoImgAttrs(p)
-        return `
-      <figure class="pv-shot">
-        <img src="${a.src}" srcset="${a.srcset}" sizes="${a.sizes}"
-          loading="${a.loading}" decoding="${a.decoding}" alt="${id} photograph ${i + 1}" />
-      </figure>`
+        return `<img src="${a.src}" srcset="${a.srcset}" sizes="${a.sizes}"
+          loading="${a.loading}" decoding="${a.decoding}" alt="${id} photograph ${i + 2}" />`
       })
-      .join('') || ''
-  )
+      .join('')}
+  </div>`
 }
 
 function renderNotFound(app, id) {
@@ -302,21 +308,9 @@ function escapeHtml(str) {
   )
 }
 
-function landmarkIcon(name) {
-  const n = String(name || '').toLowerCase()
-  if (/school|academy|university|college/.test(n)) return icon('school')
-  if (/river|stream|lake|dam|lake/.test(n)) return icon('water')
-  if (/centre|center|town|mall|market|hospital|office/.test(n)) return icon('town')
-  return icon('pin')
-}
-
 function icon(name) {
   const paths = {
-    road: '<path d="M4 19l5-5M8 15l3-3M12 12l5-5M16 8l4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
-    water: '<path d="M12 3C8 7 5 10 5 13a7 7 0 0014 0c0-3-3-6-7-10z" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     pin: '<path d="M12 21s-6-5.2-6-10a6 6 0 1112 0c0 4.8-6 10-6 10z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="11" r="2.2" fill="currentColor"/>',
-    school: '<path d="M3 21h18M5 21V9l7-4 7 4v12M9 21v-6h6v6M9 13.5v.01M15 13.5v.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
-    town: '<path d="M4 21V9l8-4 8 4v12M2 21h20M9 21v-4h6v4M10 10h.01M14 10h.01M10 14h.01M14 14h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     call: '<path d="M5 4h4l2 5-2.5 1.5a12 12 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
     wa: '<path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 9c-.5 0-.9.5-.7 1 .9 2.4 2.8 4.3 5.2 5.2.5.2 1-.2 1-.7l.8-1.7c.2-.5-.4-1-.8-.8l-1.4.6a9 9 0 01-2.4-2.4l.6-1.4c.2-.4-.3-1-.8-.8z" fill="currentColor"/>',
   }

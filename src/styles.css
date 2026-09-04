@@ -474,18 +474,12 @@ body {
 /* ---------- Property detail view ---------- */
 .pv {
   min-height: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto 1fr;
-  grid-template-areas:
-    'top'
-    'map'
-    'main';
   background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
 }
 
 .pv-topbar {
-  grid-area: top;
   position: sticky;
   top: 0;
   z-index: 20;
@@ -493,7 +487,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 12px 24px;
   background: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid var(--color-border);
 }
@@ -501,7 +495,7 @@ body {
 .pv-back {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   color: var(--color-primary);
   text-decoration: none;
   font-weight: 700;
@@ -514,16 +508,178 @@ body {
   background: var(--color-primary-soft);
 }
 
-.pv-map-wrap {
-  grid-area: map;
-  position: relative;
-  height: 300px;
+/* Quieter wordmark on the property page */
+.pv-brand .brand-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-muted);
+  letter-spacing: 0.3px;
+}
+
+.pv-main {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 28px 24px 48px;
+}
+
+.pv-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+/* Media anchor: large hero + thumbnail strip */
+.pv-media {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pv-hero {
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--color-primary-soft);
+  box-shadow: var(--color-shadow);
+}
+
+.pv-hero img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.pv-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 10px;
+}
+
+.pv-thumbs img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  background: var(--color-primary-soft);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.pv-thumbs img:hover {
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+/* Info column */
+.pv-body {
+  min-width: 0;
+}
+
+.pv-head {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pv-id-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pv-id {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: var(--color-brown-900);
+  line-height: 1.05;
+}
+
+.pv-badge {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border: 1px solid;
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
   flex: none;
 }
 
+.pv-price {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  margin-top: 14px;
+  color: var(--color-brown-900);
+  line-height: 1.1;
+}
+
+.pv-size {
+  font-size: 15px;
+  color: var(--color-muted);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* Key facts — plain text list, subtle separators */
+.pv-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pv-facts li {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 15px;
+  color: var(--color-ink);
+}
+
+.pv-facts li + li {
+  border-top: 1px solid var(--color-border);
+}
+
+.pv-block {
+  margin-top: 28px;
+}
+
+.pv-h2 {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: var(--color-muted);
+  margin: 0 0 12px;
+}
+
+.pv-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* Location: compact map + nearby places */
+.pv-location .pv-map-wrap {
+  margin-bottom: 20px;
+}
+
+.pv-map-wrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-primary-soft);
+  box-shadow: var(--color-shadow);
+}
+
 .pv-map {
-  position: absolute;
-  inset: 0;
+  width: 100%;
+  height: 300px;
+  display: block;
 }
 
 .pv-map-overlay {
@@ -539,98 +695,6 @@ body {
   font-weight: 700;
   letter-spacing: 0.4px;
   font-size: 14px;
-}
-
-.pv-main {
-  grid-area: main;
-  max-width: 760px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 16px 40px;
-}
-
-.pv-head {
-  padding-top: 22px;
-}
-
-.pv-id-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.pv-id {
-  font-family: var(--font-display);
-  font-size: 30px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  color: var(--color-brown-900);
-}
-
-.pv-badge {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  border: 1px solid;
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-}
-
-.pv-size {
-  font-size: 15px;
-  color: var(--color-muted);
-  margin-top: 4px;
-}
-
-.pv-price {
-  font-family: var(--font-display);
-  font-size: var(--fs-2xl);
-  font-weight: 700;
-  margin-top: 14px;
-  color: var(--color-brown-900);
-}
-
-.pv-specs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 18px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--color-border);
-}
-
-.pv-spec {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 14px;
-  color: var(--color-muted);
-}
-
-.pv-icon {
-  color: var(--color-primary);
-  flex: none;
-}
-
-.pv-block {
-  margin-top: 26px;
-}
-
-.pv-h2 {
-  font-size: 13px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--color-muted);
-  margin: 0 0 10px;
-}
-
-.pv-desc {
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: var(--color-ink);
-  margin: 0;
 }
 
 .pv-landmarks {
@@ -652,11 +716,6 @@ body {
   border-bottom: none;
 }
 
-.pv-lm-icon {
-  color: var(--color-primary);
-  display: inline-flex;
-}
-
 .pv-lm-name {
   flex: 1;
 }
@@ -666,26 +725,12 @@ body {
   font-weight: 600;
 }
 
-.pv-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
+.pv-icon {
+  color: var(--color-primary);
+  flex: none;
 }
 
-.pv-shot {
-  margin: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--color-primary-soft);
-}
-
-.pv-shot img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  display: block;
-}
-
+/* Contact: WhatsApp primary, Call secondary */
 .pv-contact {
   display: flex;
   flex-direction: column;
@@ -969,31 +1014,27 @@ body {
 
 /* ---------- Responsive tweaks ---------- */
 @media (min-width: 860px) {
-  .pv {
-    height: 100vh;
-    grid-template-columns: minmax(360px, 46%) 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'top top'
-      'map main';
-    overflow: hidden;
-  }
-  .pv-topbar {
-    position: relative;
-  }
-  .pv-map-wrap {
-    height: 100%;
-    position: relative;
-  }
   .pv-main {
-    max-width: none;
-    margin: 0;
-    padding: 34px 48px 48px;
-    overflow-y: auto;
+    padding: 40px 40px 64px;
+  }
+  .pv-card {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+    gap: 44px;
+    align-items: start;
+  }
+  .pv-hero img {
+    height: 460px;
   }
   .pv-contact {
     position: static;
     background: none;
+    flex-direction: row;
+  }
+  .pv-btn {
+    flex: 1;
+  }
+  .pv-topbar {
+    padding: 12px 40px;
   }
 }
 
@@ -1056,11 +1097,24 @@ body {
     top: 54px;
   }
 
-  /* Property detail: reduce map height so content appears sooner */
-  .pv-map-wrap {
+  /* Property detail (mobile): shorter map, sticky contact with safe-area */
+  .pv-map {
+    height: 240px;
+  }
+  .pv-hero img {
     height: 260px;
   }
+  .pv-main {
+    padding: 20px 24px 56px;
+  }
+  .pv-topbar {
+    padding: 12px 12px;
+  }
+  .pv-contact {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
   .pv-head {
-    padding-top: 16px;
+    padding-top: 4px;
   }
 }
