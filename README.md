@@ -46,6 +46,9 @@ node scripts/generate-images.mjs   # writes public/images/<ID>/*.webp + -thumb.w
 - Responsive parcel detail sheet: bottom sheet on mobile, floating panel on desktop.
 - Spatial photo markers with click-to-view photographs.
 - Shareable property pages at `/plot/:id` (desktop + mobile).
+- Role-based views (client-side): Buyer (map), Seller dashboard (`/seller`), Admin
+  (`/admin`). Each role has its own accent colour — buyer teal `#3A8FA3`, seller
+  amber `#C8742B`, admin forest green `#2F5D50` — layered over the shared brown brand.
 - SEO & social sharing: Open Graph / Twitter cards, canonical URLs, JSON-LD, sitemap, robots.
 
 ## Deployment — Cloudflare Workers (static assets)
@@ -65,29 +68,25 @@ For git-connected deploys, configure the build command `npm run build` and keep 
 worker deploy (`wrangler.toml` + `src/worker.js`) as-is. Subsequent pushes trigger
 automatic redeployments.
 
-### Nested portfolio deployment (`/demos/properties/`)
+### Nested portfolio site (`/demos/properties/`)
 
-A second, separate Cloudflare Worker (`property-sales-portfolio`) serves the app
-under a nested base path without touching the standalone `landsales` Worker above.
-
-- `wrangler.toml` + `dist/` → **landsales** (base `/`, standalone) — unchanged.
-- `wrangler.portfolio.toml` + `dist-portfolio/` + `src/worker.portfolio.js` →
-  **property-sales-portfolio** (base `/demos/properties/`).
+The nested copy at https://www.simonmapper.co.ke/demos/properties/ is published as
+**static assets** by the separate `psychic-adventure` (Astro/Vercel) project — not by a
+Cloudflare Worker. Update flow:
 
 ```bash
-npm run build:standalone           # base=/  -> dist/
-npm run build:portfolio            # base=/demos/properties/ -> dist-portfolio/demos/properties
-npm run deploy:portfolio           # build:portfolio + wrangler deploy --config wrangler.portfolio.toml
+npm run build:portfolio   # base=/demos/properties/ -> dist-portfolio/demos/properties
+# copy dist-portfolio/demos/properties/* into psychic-adventure/public/demos/properties/
+# commit + push psychic-adventure (Vercel auto-deploys)
 ```
 
-The portfolio worker serves every path under `/demos/properties/` and SPA-falls-back
-to its nested `index.html`, so deep links like `/demos/properties/plot/P04` work.
+SPA deep links (`/demos/properties/seller`, `/admin`, `/plot/:id`) resolve via the
+`vercel.json` rewrites in the `psychic-adventure` repo, which fall back to the nested
+`index.html`. Without them, only the map/plot routes work.
 
-> **Do not publish a Vercel rewrite in front of the standalone `landsales` Worker.**
-> If the portfolio site must proxy the app under `/demos/properties/:path*`, point it
-> at the portfolio Worker (`property-sales-portfolio`) WITHOUT stripping the prefix,
-> because that build expects `/demos/properties` in its URLs. Verify the portfolio
-> Worker directly first (base path, deep link, assets, data, images) before wiring Vercel.
+`wrangler.portfolio.toml`, `src/worker.portfolio.js` and `npm run deploy:portfolio`
+remain as an **optional alternative host** but are not used by the live route.
+
 
 ## Project structure
 
@@ -104,10 +103,17 @@ src/
   photoMarkers.js       spatial photo markers
   photos.js             thumbnail-first photo helpers
   seo.js                runtime metadata (title, OG, canonical)
-  worker.js             Cloudflare static-assets worker entry
+  roles.js              role model + localStorage + per-role accent colours
+  roleSwitcher.js       shared header role segmented control
+  statusStore.js        client-side status overrides + seller drafts
+  worker.js             Cloudflare static-assets worker entry (standalone)
+  worker.portfolio.js   optional nested-path worker entry (not used live)
   views/map.view.js     home map view
   views/property.view.js  /plot/:id detail page (lazy-loaded)
-  styles.css            design tokens + stylesheet
+  views/seller.view.js  /seller dashboard (lazy-loaded)
+  views/admin.view.js   /admin dashboard (lazy-loaded)
+  views/dashShared.js   shared dashboard chrome + rows
+  styles.css            design tokens (+ role accents) + stylesheet
 public/
   data/                 plots.geojson + plots.json
   images/<ID>/          parcel photographs (webp)
