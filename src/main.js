@@ -29,6 +29,7 @@ async function dispatch() {
   const app = document.getElementById('app')
 
   if (!route) {
+    document.documentElement.dataset.role = getRole()
     app.innerHTML = `
       <div class="notfound">
         <h1>Not found</h1>
@@ -42,6 +43,8 @@ async function dispatch() {
   // Keep the remembered role in sync with role-owned routes.
   const routeRole = roleFor(route.name)
   if (routeRole) setRole(routeRole)
+  // Drive the role-accent theme (see :root[data-role] in styles.css).
+  document.documentElement.dataset.role = getRole()
 
   if (route.name === 'property') {
     const { propertyView, teardownPropertyView } = await import('./views/property.view.js')

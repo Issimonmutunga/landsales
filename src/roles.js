@@ -7,9 +7,9 @@
 import { BASE } from './config.js'
 
 export const ROLES = [
-  { id: 'buyer', label: 'Buyer', description: 'Browse parcels on the map and enquire.' },
-  { id: 'seller', label: 'Seller', description: 'Manage your listed parcels.' },
-  { id: 'admin', label: 'Admin', description: 'Oversee every listing and role.' },
+  { id: 'buyer', label: 'Buyer', color: '#3A8FA3', description: 'Browse parcels on the map and enquire.' },
+  { id: 'seller', label: 'Seller', color: '#C8742B', description: 'Manage your listed parcels.' },
+  { id: 'admin', label: 'Admin', color: '#2F5D50', description: 'Oversee every listing and role.' },
 ]
 
 export const DEFAULT_ROLE = 'buyer'

@@ -4,6 +4,7 @@
  * one place so the two dashboards stay visually consistent.
  */
 import { CONFIG, BASE } from '../config.js'
+import { getRole, roleLabel } from '../roles.js'
 import { mountRoleSwitcher } from '../roleSwitcher.js'
 import { formatPrice, formatSize, formatStatus } from '../format.js'
 import { heroPhoto, photoImgAttrs } from '../photos.js'
@@ -22,6 +23,7 @@ export function dashShell(app, { title, subtitle }) {
     </header>
     <main class="dash-main">
       <div class="dash-head">
+        <span class="dash-rolechip"><span class="dash-rolechip-dot"></span>${roleLabel(getRole())}</span>
         <h1 class="dash-title">${title}</h1>
         <p class="dash-sub">${subtitle}</p>
       </div>

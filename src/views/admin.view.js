@@ -92,8 +92,8 @@ function render() {
       <div class="dash-roles">
         ${ROLES.map(
           (r) => `
-          <div class="dash-role">
-            <span class="dash-role-name">${r.label}</span>
+          <div class="dash-role" style="--rc:${r.color}">
+            <span class="dash-role-name"><span class="dash-role-dot"></span>${r.label}</span>
             <span class="dash-role-desc">${r.description}</span>
           </div>`,
         ).join('')}
