@@ -756,6 +756,10 @@ body {
   margin-top: 30px;
   position: sticky;
   bottom: 0;
+  /* Must sit above the location map's controls (focus pill z-index 5,
+     MapLibre attribution z-index 2) so it isn't drawn underneath them
+     when it scrolls over the map. Below the sticky top bar (20). */
+  z-index: 10;
   background: linear-gradient(to top, var(--color-bg) 60%, transparent);
   padding-top: 18px;
 }
