@@ -4,13 +4,17 @@
  * property can be linked/shared directly (e.g. /plot/P04).
  *
  * Routes:
- *   /          -> map view
+ *   /          -> map view (buyer)
  *   /plot/:id  -> property detail view
+ *   /seller    -> seller dashboard
+ *   /admin     -> admin dashboard
  */
 
 export function matchRoute(path) {
   const p = path.replace(/\/+$/, '') || '/'
   if (p === '/') return { name: 'map' }
+  if (p === '/seller') return { name: 'seller' }
+  if (p === '/admin') return { name: 'admin' }
 
   const m = p.match(/^\/plot\/([A-Za-z0-9-]+)$/)
   if (m) return { name: 'property', id: m[1] }

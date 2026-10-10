@@ -17,8 +17,8 @@ export const CONFIG = {
 
   seller: {
     name: 'Properties Agency',
-    contactNumber: '+254 700 000 000',
-    whatsappNumber: '254700000000',
+    contactNumber: '+254 706 085 240',
+    whatsappNumber: '254706085240',
     email: 'sales@property.site',
   },
 

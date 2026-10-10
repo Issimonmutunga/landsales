@@ -7,6 +7,7 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { CONFIG, BASE } from '../config.js'
 import { CompactAttributionControl } from '../map.js'
+import { mountRoleSwitcher } from '../roleSwitcher.js'
 import { loadProperties, getProperty } from '../properties.js'
 import { getParcelGeometry } from '../parcels.js'
 import { mountStatus } from '../ui.js'
@@ -46,6 +47,7 @@ export async function propertyView(id, app) {
 
   const partial = !meta || !bounds
   renderDetail(app, id, meta, bounds, partial)
+  mountRoleSwitcher(app.querySelector('.pv-role-host'))
   document.title = documentTitle(id, meta)
   setPropertySeo(id, meta)
 
@@ -111,6 +113,7 @@ function renderDetail(app, id, meta, bounds, partial) {
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
           <span>Map</span>
         </a>
+        <div class="pv-role-host"></div>
         <a class="brand-link pv-brand" href="${BASE}/" aria-label="${CONFIG.site.name} home">
           <span class="brand-name">${CONFIG.site.name}</span>
         </a>

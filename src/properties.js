@@ -4,6 +4,7 @@
  */
 import { loadParcels, getAllParcelIds } from './parcels.js'
 import { BASE } from './config.js'
+import { readStatusOverrides, writeStatusOverride } from './statusStore.js'
 
 const METADATA_URL = `${BASE}/data/plots.json`
 const SUPPORTED_STATUSES = ['available', 'sold']
@@ -33,7 +34,31 @@ export async function loadProperties() {
   }
 
   validateProperties(properties)
+  applyStatusOverrides()
   return properties
+}
+
+/** Layer any client-side status overrides on top of the loaded metadata. */
+function applyStatusOverrides() {
+  const overrides = readStatusOverrides()
+  for (const [id, status] of Object.entries(overrides)) {
+    if (properties[id] && SUPPORTED_STATUSES.includes(status)) {
+      properties[id].status = status
+    }
+  }
+}
+
+/**
+ * Change a parcel's status client-side (demo seller/admin action). Updates
+ * the in-memory metadata so the whole app reflects it, and persists the
+ * override so it survives reloads.
+ */
+export function applyStatusOverride(id, status) {
+  if (!properties || !properties[id]) return false
+  if (!SUPPORTED_STATUSES.includes(status)) return false
+  properties[id].status = status
+  writeStatusOverride(id, status)
+  return true
 }
 
 function validateProperties(properties) {

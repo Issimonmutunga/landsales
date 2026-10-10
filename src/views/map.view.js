@@ -7,6 +7,7 @@ import maplibregl from 'maplibre-gl'
 import { createMap } from '../map.js'
 import { loadProperties } from '../properties.js'
 import { mountBrand, mountStatus } from '../ui.js'
+import { mountRoleSwitcher } from '../roleSwitcher.js'
 import { addPhotoMarkers } from '../photoMarkers.js'
 import { photoImgAttrs } from '../photos.js'
 import { buildFilterBar } from '../filterBar.js'
@@ -32,6 +33,10 @@ export async function mapView() {
   app.appendChild(root)
 
   mountBrand(root)
+  const roleHost = document.createElement('div')
+  roleHost.className = 'role-host role-host--float'
+  root.appendChild(roleHost)
+  mountRoleSwitcher(roleHost)
   const status = mountStatus(root)
   const filtersHost = document.createElement('div')
   filtersHost.className = 'filters-host'
