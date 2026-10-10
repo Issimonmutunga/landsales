@@ -2,8 +2,10 @@
  * Portfolio Worker — serves the property-sales app behind a Vercel
  * /demos/properties/* rewrite.
  *
- * Vercel strips the /demos/properties prefix before forwarding the request,
- * so this Worker serves the app from the root.
+ * The build uses base=/demos/properties/ and the assets live under
+ * dist-portfolio/demos/properties/, so the /demos/properties prefix MUST be
+ * preserved end-to-end. Configure the Vercel rewrite WITHOUT stripping it:
+ *   /demos/properties/:path*  ->  https://<portfolio-worker>/demos/properties/:path*
  */
 
 const INDEX = '/demos/properties/index.html'
